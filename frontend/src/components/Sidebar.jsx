@@ -65,24 +65,26 @@ const Sidebar = ({ collapsed }) => {
 
   return (
     <aside className={`bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-r border-slate-200 dark:border-slate-800 h-screen fixed left-0 top-0 z-30 flex flex-col justify-between transition-all duration-300 shadow-xl shadow-slate-200/20 dark:shadow-slate-950/50 ${collapsed ? 'w-20' : 'w-64'}`}>
-      <div>
-        {/* Brand Header */}
-        <div className="h-16 flex items-center justify-center border-b border-slate-200 dark:border-slate-800 px-4">
-          <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-primary-500 to-accent-teal flex items-center justify-center text-white font-black shadow-md shadow-primary-500/20">
-              S
-            </div>
-            {!collapsed && (
-              <span className="font-black text-lg tracking-wider text-slate-900 dark:text-white">
-                SANDEEP
-              </span>
-            )}
+      
+      {/* Fixed Brand Header */}
+      <div className="h-16 flex-shrink-0 flex items-center justify-center border-b border-slate-200 dark:border-slate-800 px-4">
+        <div className="flex items-center space-x-3">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-primary-500 to-accent-teal flex items-center justify-center text-white font-black shadow-md shadow-primary-500/20">
+            S
           </div>
+          {!collapsed && (
+            <span className="font-black text-lg tracking-wider text-slate-900 dark:text-white">
+              SANDEEP
+            </span>
+          )}
         </div>
+      </div>
 
+      {/* Scrollable Middle Navigation Content */}
+      <div className="flex-1 overflow-y-auto py-2">
         {/* User Quick Info */}
         {!collapsed && (
-          <div className="p-4 mx-4 my-6 rounded-2xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/60 text-center shadow-sm">
+          <div className="p-4 mx-4 my-4 rounded-2xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/60 text-center shadow-sm">
             <div className="relative w-16 h-16 mx-auto mb-3">
               <img
                 src={user.profileImage || `https://api.dicebear.com/7.x/adventurer/svg?seed=${user.name}`}
@@ -99,7 +101,7 @@ const Sidebar = ({ collapsed }) => {
         )}
 
         {/* Menu Links */}
-        <nav className="mt-4 px-3 space-y-1.5">
+        <nav className="px-3 space-y-1.5 pb-4">
           {menuItems.map((item) => (
             <NavLink
               key={item.path}
@@ -119,13 +121,13 @@ const Sidebar = ({ collapsed }) => {
         </nav>
       </div>
 
-      {/* Logout button */}
-      <div className="p-3 border-t border-slate-200 dark:border-slate-800">
+      {/* Fixed Logout Button at Bottom */}
+      <div className="p-3 flex-shrink-0 border-t border-slate-200 dark:border-slate-800">
         <button
           onClick={logout}
-          className="flex items-center space-x-3 w-full px-4 py-3 rounded-xl text-xs font-bold text-rose-500 hover:bg-rose-500/10 transition-colors"
+          className="flex items-center space-x-3 w-full px-4 py-3 rounded-xl text-xs font-bold text-rose-500 hover:bg-rose-500/10 transition-colors cursor-pointer"
         >
-          <LogOut className="w-5 h-5" />
+          <LogOut className="w-5 h-5 flex-shrink-0" />
           {!collapsed && <span>Logout</span>}
         </button>
       </div>
