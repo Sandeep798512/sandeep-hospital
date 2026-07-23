@@ -59,21 +59,21 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen py-12 flex items-center justify-center bg-slate-50 dark:bg-slate-950 px-4 transition-colors duration-300">
-      <div className="absolute top-1/4 left-1/4 w-80 h-80 bg-primary-500/5 rounded-full blur-3xl animate-pulse-glow"></div>
-      <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-accent-teal/5 rounded-full blur-3xl animate-pulse-glow" style={{ animationDelay: '1.5s' }}></div>
+    <div className="min-h-screen py-12 flex items-center justify-center bg-slate-100 dark:bg-slate-950 px-4 transition-colors duration-300">
+      <div className="absolute top-1/4 left-1/4 w-80 h-80 bg-indigo-500/10 rounded-full blur-3xl animate-pulse-glow"></div>
+      <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-teal-500/10 rounded-full blur-3xl animate-pulse-glow" style={{ animationDelay: '1.5s' }}></div>
 
       <div className="w-full max-w-2xl relative z-10">
         <div className="text-center mb-8">
-          <h2 className="text-3xl font-extrabold text-slate-800 dark:text-white tracking-wider">
+          <h2 className="text-3xl font-black text-slate-900 dark:text-white tracking-wider">
             Patient Registration
           </h2>
-          <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
+          <p className="mt-2 text-sm font-medium text-slate-600 dark:text-slate-300">
             Create an account to schedule appointments, consult our AI health assistant, and access medical summaries.
           </p>
         </div>
 
-        <GlassCard className="border border-white/20 dark:border-slate-800/15">
+        <GlassCard className="border border-slate-200 dark:border-slate-800 shadow-2xl bg-white/95 dark:bg-slate-900/95">
           <form onSubmit={handleSubmit} className="space-y-6">
             <h3 className="text-sm font-bold tracking-widest text-primary-500 uppercase border-b border-slate-200/50 dark:border-slate-800/20 pb-2 flex items-center space-x-2">
               <ClipboardList className="w-4 h-4" />

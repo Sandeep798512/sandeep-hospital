@@ -114,17 +114,17 @@ const LandingPage = () => {
 
             <Link
               to="/login"
-              className="px-4 py-2 rounded-xl border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:border-primary-500 hover:text-primary-500 text-xs font-bold transition-all hover:scale-105 active:scale-95"
+              className="px-4 py-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 hover:border-indigo-600 hover:text-indigo-600 text-xs font-black transition-all hover:scale-105 active:scale-95 shadow-sm"
             >
               Portal Login
             </Link>
 
             <Link
               to="/patient/book"
-              className="hidden sm:flex items-center space-x-1.5 px-4 py-2 rounded-xl bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-white font-bold text-xs shadow-lg shadow-primary-500/25 transition-all hover:scale-105 active:scale-95"
+              className="hidden sm:flex items-center space-x-1.5 px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold text-xs shadow-md shadow-indigo-600/30 transition-all hover:scale-105 active:scale-95 border border-indigo-600"
             >
-              <Calendar className="w-4 h-4" />
-              <span>Book Consultation</span>
+              <Calendar className="w-4 h-4 text-white" />
+              <span className="text-white">Book Consultation</span>
             </Link>
           </div>
         </div>
@@ -132,19 +132,19 @@ const LandingPage = () => {
 
       {/* HERO SECTION */}
       <section className="relative overflow-hidden pt-12 pb-16 lg:pt-20 lg:pb-24">
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-tr from-primary-500/20 to-accent-cyan/20 rounded-full blur-3xl -z-10 pointer-events-none"></div>
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-tr from-indigo-500/20 to-teal-500/20 rounded-full blur-3xl -z-10 pointer-events-none"></div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             
             <div className="space-y-6 text-center lg:text-left">
-              <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-primary-500/10 border border-primary-500/20 text-primary-600 dark:text-primary-400 text-xs font-bold">
+              <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-600 dark:text-indigo-400 text-xs font-bold">
                 <Sparkles className="w-4 h-4" />
                 <span>Next-Generation MERN & Gemini AI Healthcare Platform</span>
               </div>
 
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 dark:text-white tracking-tight leading-[1.15]">
-                Your Health is <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-500 via-primary-600 to-accent-cyan">Our Highest Priority</span>
+                Your Health is <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-blue-600 to-teal-500">Our Highest Priority</span>
               </h1>
 
               <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed max-w-xl mx-auto lg:mx-0">
@@ -154,15 +154,15 @@ const LandingPage = () => {
               <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
                 <Link
                   to="/patient/book"
-                  className="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-white font-bold text-sm shadow-xl shadow-primary-500/30 flex items-center justify-center space-x-2 transition-all hover:scale-105 active:scale-95"
+                  className="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold text-sm shadow-xl shadow-indigo-600/30 flex items-center justify-center space-x-2 transition-all hover:scale-105 active:scale-95 border border-indigo-600"
                 >
-                  <Calendar className="w-5 h-5" />
-                  <span>Book Appointment Now</span>
+                  <Calendar className="w-5 h-5 text-white" />
+                  <span className="text-white">Book Appointment Now</span>
                 </Link>
 
                 <Link
                   to="/register"
-                  className="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 hover:bg-slate-200 font-bold text-sm flex items-center justify-center space-x-2 transition-all hover:scale-105 active:scale-95"
+                  className="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-800 dark:text-slate-100 hover:border-indigo-600 hover:text-indigo-600 font-extrabold text-sm flex items-center justify-center space-x-2 transition-all hover:scale-105 active:scale-95 shadow-sm"
                 >
                   <Users className="w-5 h-5" />
                   <span>Register Patient Portal</span>
