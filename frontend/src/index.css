@@ -1,7 +1,14 @@
 @import "tailwindcss";
 
-/* Force Tailwind v4 class-based dark mode instead of system OS media query */
-@custom-variant dark (&:where(.dark, .dark *));
+@variant dark (&:where(.dark, .dark *));
+
+:root {
+  color-scheme: light;
+}
+
+:root.dark, html.dark, body.dark {
+  color-scheme: dark;
+}
 
 body {
   background-color: #f8fafc;
@@ -11,6 +18,12 @@ body {
 }
 
 html.dark body, body.dark {
+  background-color: #030a21 !important;
+  color: #f8fafc !important;
+}
+
+/* Force dark background for layout containers in dark mode */
+.dark div.min-h-screen, .dark section.min-h-screen, .dark main {
   background-color: #030a21 !important;
   color: #f8fafc !important;
 }
