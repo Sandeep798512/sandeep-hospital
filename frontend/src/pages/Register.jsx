@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { UserPlus, User, Mail, Lock, Heart, Phone, MapPin, ClipboardList } from 'lucide-react';
+import { UserPlus, User, Mail, Lock, Eye, EyeOff, Heart, Phone, MapPin, ClipboardList } from 'lucide-react';
 import GlassCard from '../components/GlassCard';
 import Toast from '../components/Toast';
 
@@ -15,6 +15,7 @@ const Register = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [age, setAge] = useState('');
   const [gender, setGender] = useState('Male');
   const [bloodGroup, setBloodGroup] = useState('O+');
@@ -59,7 +60,6 @@ const Register = () => {
 
   return (
     <div className="min-h-screen py-12 flex items-center justify-center bg-slate-50 dark:bg-slate-950 px-4 transition-colors duration-300">
-      {/* Glow blobs */}
       <div className="absolute top-1/4 left-1/4 w-80 h-80 bg-primary-500/5 rounded-full blur-3xl animate-pulse-glow"></div>
       <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-accent-teal/5 rounded-full blur-3xl animate-pulse-glow" style={{ animationDelay: '1.5s' }}></div>
 
@@ -128,13 +128,21 @@ const Register = () => {
                     <Lock className="w-4.5 h-4.5" />
                   </span>
                   <input
-                    type="password"
+                    type={showPassword ? 'text' : 'password'}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="block w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-100/50 dark:bg-slate-900/50 border border-slate-200/50 dark:border-slate-800/30 text-slate-800 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-primary-500/50"
+                    className="block w-full pl-10 pr-10 py-2.5 rounded-xl bg-slate-100/50 dark:bg-slate-900/50 border border-slate-200/50 dark:border-slate-800/30 text-slate-800 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-primary-500/50"
                     placeholder="••••••••"
                     required
                   />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 focus:outline-none"
+                    title={showPassword ? 'Hide password' : 'Show password'}
+                  >
+                    {showPassword ? <EyeOff className="w-4.5 h-4.5" /> : <Eye className="w-4.5 h-4.5" />}
+                  </button>
                 </div>
               </div>
             </div>

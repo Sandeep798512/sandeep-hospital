@@ -4,7 +4,7 @@ import API from '../utils/api';
 import GlassCard from '../components/GlassCard';
 import Toast from '../components/Toast';
 import Loader from '../components/Loader';
-import { User, Lock, Save, Camera, Mail, ShieldAlert } from 'lucide-react';
+import { User, Lock, Eye, EyeOff, Save, Camera } from 'lucide-react';
 
 const Profile = () => {
   const { user, updateProfile, changePassword } = useAuth();
@@ -27,6 +27,8 @@ const Profile = () => {
   // Password state
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
+  const [showCurrentPassword, setShowCurrentPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
   const [changingPass, setChangingPass] = useState(false);
 
   useEffect(() => {
@@ -61,8 +63,6 @@ const Profile = () => {
 
     let uploadedImageUrl = profileImage;
     if (profileFile) {
-      // If profile picture is changed, upload it first using a standard multipart profile update endpoint, or pass base64
-      // Let's convert file to base64 for simplicity in profileImage JSON parameter
       const reader = new FileReader();
       reader.readAsDataURL(profileFile);
       reader.onloadend = async () => {
@@ -269,26 +269,46 @@ const Profile = () => {
           <form onSubmit={handleChangePassword} className="space-y-4 text-xs">
             <div>
               <label className="block text-[10px] font-bold uppercase text-slate-500 mb-1">Current Password *</label>
-              <input
-                type="password"
-                required
-                value={currentPassword}
-                onChange={e => setCurrentPassword(e.target.value)}
-                className="w-full px-3 py-2 rounded-xl bg-slate-100/50 dark:bg-slate-900 border border-slate-300/30 dark:border-slate-800 focus:outline-none"
-                placeholder="••••••••"
-              />
+              <div className="relative">
+                <input
+                  type={showCurrentPassword ? 'text' : 'password'}
+                  required
+                  value={currentPassword}
+                  onChange={e => setCurrentPassword(e.target.value)}
+                  className="w-full px-3 py-2 pr-10 rounded-xl bg-slate-100/50 dark:bg-slate-900 border border-slate-300/30 dark:border-slate-800 focus:outline-none"
+                  placeholder="••••••••"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowCurrentPassword(!showCurrentPassword)}
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 focus:outline-none"
+                  title={showCurrentPassword ? 'Hide password' : 'Show password'}
+                >
+                  {showCurrentPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
+              </div>
             </div>
 
             <div>
               <label className="block text-[10px] font-bold uppercase text-slate-500 mb-1">New Password *</label>
-              <input
-                type="password"
-                required
-                value={newPassword}
-                onChange={e => setNewPassword(e.target.value)}
-                className="w-full px-3 py-2 rounded-xl bg-slate-100/50 dark:bg-slate-900 border border-slate-300/30 dark:border-slate-800 focus:outline-none"
-                placeholder="••••••••"
-              />
+              <div className="relative">
+                <input
+                  type={showNewPassword ? 'text' : 'password'}
+                  required
+                  value={newPassword}
+                  onChange={e => setNewPassword(e.target.value)}
+                  className="w-full px-3 py-2 pr-10 rounded-xl bg-slate-100/50 dark:bg-slate-900 border border-slate-300/30 dark:border-slate-800 focus:outline-none"
+                  placeholder="••••••••"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowNewPassword(!showNewPassword)}
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 focus:outline-none"
+                  title={showNewPassword ? 'Hide password' : 'Show password'}
+                >
+                  {showNewPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
+              </div>
             </div>
 
             <button

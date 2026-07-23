@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
 import API from '../utils/api';
-import { ShieldAlert, Mail, Lock, KeyRound } from 'lucide-react';
+import { ShieldAlert, Mail, Lock, Eye, EyeOff, KeyRound } from 'lucide-react';
 import GlassCard from '../components/GlassCard';
 import Toast from '../components/Toast';
 
@@ -11,7 +10,8 @@ const ForgotPassword = () => {
   const [email, setEmail] = useState('');
   const [otp, setOtp] = useState('');
   const [newPassword, setNewPassword] = useState('');
-  const [step, setStep] = useState(1); // Step 1: Request OTP, Step 2: Reset Password
+  const [showPassword, setShowPassword] = useState(false);
+  const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
   const [toast, setToast] = useState(null);
 
@@ -61,7 +61,6 @@ const ForgotPassword = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-slate-950 px-4 transition-colors duration-300">
-      {/* Glow blobs */}
       <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-primary-500/10 rounded-full blur-3xl animate-pulse-glow"></div>
 
       <div className="w-full max-w-md relative z-10">
@@ -139,13 +138,21 @@ const ForgotPassword = () => {
                     <Lock className="w-5 h-5" />
                   </span>
                   <input
-                    type="password"
+                    type={showPassword ? 'text' : 'password'}
                     value={newPassword}
                     onChange={(e) => setNewPassword(e.target.value)}
-                    className="block w-full pl-10 pr-4 py-3 rounded-xl bg-slate-100/50 dark:bg-slate-900/50 border border-slate-200/50 dark:border-slate-800/30 text-slate-800 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-primary-500/50 transition-all text-sm"
+                    className="block w-full pl-10 pr-10 py-3 rounded-xl bg-slate-100/50 dark:bg-slate-900/50 border border-slate-200/50 dark:border-slate-800/30 text-slate-800 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-primary-500/50 transition-all text-sm"
                     placeholder="••••••••"
                     required
                   />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 focus:outline-none"
+                    title={showPassword ? 'Hide password' : 'Show password'}
+                  >
+                    {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                  </button>
                 </div>
               </div>
 
@@ -174,7 +181,6 @@ const ForgotPassword = () => {
           </div>
         </GlassCard>
 
-        {/* Console OTP hint for evaluation */}
         <div className="mt-6 p-4 rounded-2xl bg-amber-500/5 dark:bg-amber-950/20 border border-amber-500/10 text-xs text-slate-500 dark:text-slate-400 flex items-start space-x-2">
           <ShieldAlert className="w-4 h-4 text-amber-500 flex-shrink-0 mt-0.5" />
           <p>
