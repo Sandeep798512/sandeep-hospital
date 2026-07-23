@@ -191,14 +191,14 @@ const LandingPage = () => {
                 <div className="flex flex-col sm:flex-row items-center gap-5">
                   <img
                     src="/SANDEEP GAUD.JPG"
-                    alt="Er. Sandeep Gaud"
+                    alt="Sandeep Gaud"
                     className="w-28 h-28 sm:w-32 sm:h-32 rounded-3xl object-cover border-4 border-primary-500/30 shadow-xl hover:rotate-2 transition-transform"
                   />
                   <div className="text-center sm:text-left">
                     <span className="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider text-primary-500 bg-primary-500/10 inline-block mb-1">
                       Founder & Chief Architect
                     </span>
-                    <h3 className="text-xl font-black text-slate-900 dark:text-white">Er. Sandeep Gaud</h3>
+                    <h3 className="text-xl font-black text-slate-900 dark:text-white">Sandeep Gaud</h3>
                     <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Senior MERN Stack Architect & Healthcare Tech Lead</p>
                     <p className="text-[11px] text-slate-400 mt-2 italic leading-relaxed">
                       "Committed to transforming regional healthcare through advanced technology, modern infrastructure, and empathetic patient care."
@@ -490,7 +490,7 @@ const LandingPage = () => {
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-slate-800 pt-6 text-center text-[10px] text-slate-500">
-          © 2026 Sandeep Super Specialty Hospital Management System. Built by Er. Sandeep Gaud with MERN Stack & Gemini AI. All rights reserved.
+          © 2026 Sandeep Super Specialty Hospital Management System. Built by Sandeep Gaud with MERN Stack & Gemini AI. All rights reserved.
         </div>
       </footer>
 
