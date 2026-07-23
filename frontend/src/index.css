@@ -1,28 +1,26 @@
 @import "tailwindcss";
 
+/* Force Tailwind v4 class-based dark mode instead of system OS media query */
+@custom-variant dark (&:where(.dark, .dark *));
+
 body {
-  @apply bg-slate-50 text-slate-900 transition-colors duration-300;
+  background-color: #f8fafc;
+  color: #0f172a;
+  transition: background-color 0.3s ease, color 0.3s ease;
   font-feature-settings: "cv02", "cv03", "cv04", "cv11";
 }
 
-body.dark, html.dark body {
-  @apply bg-slate-950 text-slate-100;
+html.dark body, body.dark {
   background-color: #030a21 !important;
+  color: #f8fafc !important;
 }
 
-/* Glassmorphism Styles */
+/* Light Mode Glass Panels & Cards */
 .glass-panel {
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(226, 232, 240, 0.9);
-}
-
-.dark .glass-panel {
-  background: rgba(15, 23, 42, 0.95);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(51, 65, 85, 0.8);
 }
 
 .glass-card {
@@ -33,17 +31,27 @@ body.dark, html.dark body {
   box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
 }
 
-.dark .glass-card {
-  background: rgba(15, 23, 42, 0.92);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(51, 65, 85, 0.7);
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+/* Dark Mode Glass Panels & Cards */
+.dark .glass-panel {
+  background: rgba(15, 23, 42, 0.95) !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(51, 65, 85, 0.8) !important;
 }
 
-/* High Contrast Input & Form Control Defaults */
+.dark .glass-card {
+  background: rgba(15, 23, 42, 0.92) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(51, 65, 85, 0.7) !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* Form Controls - Light vs Dark */
 input, select, textarea {
-  color-scheme: light dark;
+  color: #0f172a;
+  background-color: #ffffff;
+  border-color: #cbd5e1;
 }
 
 .dark input, .dark select, .dark textarea {
@@ -52,11 +60,25 @@ input, select, textarea {
   border-color: rgba(51, 65, 85, 0.8) !important;
 }
 
-.dark input::placeholder, .dark textarea::placeholder {
-  color: #94a3b8 !important;
+input::placeholder, textarea::placeholder {
+  color: #94a3b8;
 }
 
-/* Table High Contrast Visibility */
+.dark input::placeholder, .dark textarea::placeholder {
+  color: #64748b !important;
+}
+
+/* Table Light vs Dark */
+table th {
+  color: #475569;
+  background-color: #f1f5f9;
+}
+
+table td {
+  color: #0f172a;
+  border-color: #e2e8f0;
+}
+
 .dark table th {
   color: #cbd5e1 !important;
   background-color: rgba(30, 41, 59, 0.9) !important;
