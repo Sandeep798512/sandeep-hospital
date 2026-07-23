@@ -61,10 +61,10 @@ const PatientDashboard = () => {
         <div className="flex gap-2">
           <Link
             to="/patient/book"
-            className="flex items-center space-x-1.5 px-4 py-2.5 rounded-xl bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-white font-bold text-xs shadow-lg shadow-primary-500/20 transition-all"
+            className="flex items-center space-x-1.5 px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold text-xs shadow-md shadow-indigo-600/30 transition-all border border-indigo-600 hover:scale-105 active:scale-95"
           >
-            <Calendar className="w-4 h-4" />
-            <span>Book Consultation</span>
+            <Calendar className="w-4 h-4 text-white" />
+            <span className="text-white">Book Consultation</span>
           </Link>
         </div>
       </div>
