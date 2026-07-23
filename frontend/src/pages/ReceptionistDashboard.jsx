@@ -160,6 +160,21 @@ const ReceptionistDashboard = () => {
     }
   };
 
+  const handleMarkPaid = async (billId, invNum) => {
+    try {
+      const res = await API.put(`/bills/${billId}`, {
+        paymentStatus: 'Paid',
+        paymentMethod: 'Cash Desk',
+      });
+      if (res.data.success) {
+        setToast({ type: 'success', message: `Invoice ${invNum} marked as Paid!` });
+        fetchDashboardData();
+      }
+    } catch (err) {
+      setToast({ type: 'error', message: 'Failed to update payment status' });
+    }
+  };
+
   const handleDownloadInvoice = async (billId, invNum) => {
     try {
       const res = await API.get(`/bills/${billId}/pdf`, { responseType: 'blob' });
@@ -315,13 +330,24 @@ const ReceptionistDashboard = () => {
                       </p>
                     </div>
 
-                    <button
-                      onClick={() => handleDownloadInvoice(bill._id, bill.invoiceNumber)}
-                      className="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-900 dark:hover:bg-slate-800 text-slate-500 hover:text-primary-500 transition-colors"
-                      title="Download PDF Invoice"
-                    >
-                      <Download className="w-4 h-4" />
-                    </button>
+                    <div className="flex items-center space-x-1.5">
+                      {bill.paymentStatus !== 'Paid' && (
+                        <button
+                          onClick={() => handleMarkPaid(bill._id, bill.invoiceNumber)}
+                          className="px-2 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-[9px] transition-all cursor-pointer shadow-sm"
+                          title="Mark as Paid at counter"
+                        >
+                          Mark Paid
+                        </button>
+                      )}
+                      <button
+                        onClick={() => handleDownloadInvoice(bill._id, bill.invoiceNumber)}
+                        className="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-900 dark:hover:bg-slate-800 text-slate-500 hover:text-primary-500 transition-colors"
+                        title="Download PDF Invoice"
+                      >
+                        <Download className="w-4 h-4" />
+                      </button>
+                    </div>
                   </div>
                 ))
               ) : (

@@ -74,16 +74,23 @@ const PatientDashboard = () => {
         {[
           { label: 'Total Consultations', value: stats.totalAppointments, icon: <UserCheck className="w-5 h-5 text-indigo-500" />, desc: 'Visits with our specialists' },
           { label: 'Active Prescriptions', value: stats.activePrescriptions, icon: <ClipboardList className="w-5 h-5 text-emerald-500" />, desc: 'Current medication sheets' },
-          { label: 'Pending Dues / Bills', value: stats.unpaidBills, icon: <AlertCircle className="w-5 h-5 text-rose-500" />, desc: 'Pending invoice bills' },
+          { label: 'Pending Dues / Bills', value: stats.unpaidBills, icon: <AlertCircle className="w-5 h-5 text-rose-500" />, desc: 'Pending invoice bills', link: '/patient/history' },
         ].map((m, idx) => (
           <GlassCard key={idx} className="p-5 flex flex-col justify-between">
             <div className="flex items-center justify-between">
               <span className="text-xs font-extrabold text-slate-500 dark:text-slate-400 uppercase tracking-wider">{m.label}</span>
               <div className="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700/50">{m.icon}</div>
             </div>
-            <div className="mt-4">
-              <h3 className="text-3xl font-black text-slate-900 dark:text-white">{m.value}</h3>
-              <p className="text-[11px] text-slate-500 dark:text-slate-400 font-medium mt-1">{m.desc}</p>
+            <div className="mt-4 flex items-end justify-between">
+              <div>
+                <h3 className="text-3xl font-black text-slate-900 dark:text-white">{m.value}</h3>
+                <p className="text-[11px] text-slate-500 dark:text-slate-400 font-medium mt-1">{m.desc}</p>
+              </div>
+              {m.link && (
+                <Link to={m.link} className="text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:underline flex items-center space-x-1">
+                  <span>Pay Dues →</span>
+                </Link>
+              )}
             </div>
           </GlassCard>
         ))}
