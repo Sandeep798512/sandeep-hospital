@@ -67,7 +67,7 @@ const Login = () => {
         <GlassCard className="border border-white/20 dark:border-slate-800/15">
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
+              <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-2">
                 Email Address
               </label>
               <div className="relative">
@@ -78,7 +78,7 @@ const Login = () => {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="block w-full pl-10 pr-4 py-3 rounded-xl bg-slate-100/50 dark:bg-slate-900/50 border border-slate-200/50 dark:border-slate-800/30 text-slate-800 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-primary-500/50 transition-all text-sm"
+                  className="block w-full pl-10 pr-4 py-3 rounded-xl bg-slate-100/50 dark:bg-slate-900/80 border border-slate-200/50 dark:border-slate-800/50 text-slate-800 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-primary-500/50 transition-all text-sm"
                   placeholder="name@hospital.com"
                   required
                 />
@@ -86,7 +86,7 @@ const Login = () => {
             </div>
 
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
+              <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-2">
                 Password
               </label>
               <div className="relative">
@@ -97,14 +97,14 @@ const Login = () => {
                   type={showPassword ? 'text' : 'password'}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="block w-full pl-10 pr-10 py-3 rounded-xl bg-slate-100/50 dark:bg-slate-900/50 border border-slate-200/50 dark:border-slate-800/30 text-slate-800 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-primary-500/50 transition-all text-sm"
+                  className="block w-full pl-10 pr-12 py-3 rounded-xl bg-slate-100/50 dark:bg-slate-900/80 border border-slate-200/50 dark:border-slate-800/50 text-slate-800 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-primary-500/50 transition-all text-sm"
                   placeholder="••••••••"
                   required
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 focus:outline-none"
+                  className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-primary-500 dark:hover:text-cyan-400 transition-colors cursor-pointer"
                   title={showPassword ? 'Hide password' : 'Show password'}
                 >
                   {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
@@ -112,17 +112,17 @@ const Login = () => {
               </div>
             </div>
 
-            <div className="flex items-center justify-between text-xs font-semibold">
-              <label className="flex items-center text-slate-500 dark:text-slate-400 cursor-pointer">
+            <div className="flex items-center justify-between text-xs font-bold">
+              <label className="flex items-center text-slate-600 dark:text-slate-300 cursor-pointer">
                 <input
                   type="checkbox"
-                  className="mr-2 rounded text-primary-500 focus:ring-primary-500/30 border-slate-350 dark:border-slate-800 dark:bg-slate-900"
+                  className="mr-2 rounded text-primary-500 focus:ring-primary-500/30 border-slate-300 dark:border-slate-700 dark:bg-slate-900"
                 />
                 Remember Me
               </label>
               <Link
                 to="/forgot-password"
-                className="text-primary-500 hover:text-primary-600 dark:text-accent-cyan dark:hover:text-cyan-400 hover:underline"
+                className="text-primary-600 dark:text-cyan-400 font-bold hover:text-primary-700 dark:hover:text-cyan-300 hover:underline transition-colors"
               >
                 Forgot Password?
               </Link>
@@ -144,11 +144,11 @@ const Login = () => {
             </button>
           </form>
 
-          <div className="mt-6 text-center text-xs font-medium text-slate-500 dark:text-slate-400">
+          <div className="mt-6 text-center text-xs font-medium text-slate-600 dark:text-slate-300">
             Don't have an account?{' '}
             <Link
               to="/register"
-              className="text-primary-500 hover:text-primary-600 dark:text-accent-cyan dark:hover:text-cyan-400 hover:underline"
+              className="text-primary-600 dark:text-cyan-400 font-bold hover:underline"
             >
               Register as Patient
             </Link>
@@ -156,8 +156,8 @@ const Login = () => {
         </GlassCard>
 
         {/* Demo Credentials Alert box */}
-        <div className="mt-6 p-4 rounded-2xl bg-primary-500/5 dark:bg-primary-950/20 border border-primary-500/10 text-xs text-slate-500 dark:text-slate-400 space-y-1">
-          <div className="flex items-center space-x-2 text-primary-600 dark:text-accent-cyan font-bold mb-1">
+        <div className="mt-6 p-4 rounded-2xl bg-primary-500/5 dark:bg-primary-950/20 border border-primary-500/10 text-xs text-slate-600 dark:text-slate-300 space-y-1">
+          <div className="flex items-center space-x-2 text-primary-600 dark:text-cyan-400 font-bold mb-1">
             <ShieldAlert className="w-4 h-4" />
             <span>Recruiter Quick Testing Credentials:</span>
           </div>
