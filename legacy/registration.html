@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patient Registration - Sandeep Hospital</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #3ecbe7;
+    }
+    header {
+      background: #2b4eff;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0;
+    }
+    nav {
+      background: #0e1c64;
+      padding: 10px 0;
+      text-align: center;
+    }
+    nav a {
+      color: white;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    form {
+      background: #f7fafa;
+      padding: 20px;
+      margin: 30px auto;
+      max-width: 500px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      margin-top: 15px;
+      padding: 10px 15px;
+      background: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    #receipt {
+      display: none;
+      background: #fff;
+      padding: 20px;
+      margin: 20px auto;
+      max-width: 700px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .hospital-header {
+      text-align: center;
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 10px;
+      margin-bottom: 15px;
+    }
+    .hospital-header h2 {
+      margin: 5px 0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 15px 0;
+    }
+    table, th, td {
+      border: 1px solid #999;
+    }
+    th, td {
+      padding: 10px;
+      text-align: left;
+    }
+    .footer {
+      text-align: center;
+      margin-top: 15px;
+      font-weight: bold;
+      color: #444;
+    }
+    @media print {
+      form, button, nav, header { display: none; }
+      #receipt { display: block; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Patient Registration - Sandeep Hospital</h1>
+  </header>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="doctors.html">Doctors</a>
+    <a href="registration.html">Patient Registration</a>
+    <a href="billing.html">Billing</a>
+    <a href="medical.html">Medical Records</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+
+  <!-- Registration Form -->
+  <form id="registrationForm">
+    <label for="name">Full Name:</label>
+    <input type="text" id="name" required>
+
+    <label for="age">Age:</label>
+    <input type="number" id="age" required>
+
+    <label for="gender">Gender:</label>
+    <select id="gender" required>
+      <option value="">--Select--</option>
+      <option>Male</option>
+      <option>Female</option>
+      <option>Other</option>
+    </select>
+
+    <label for="mobile">Mobile Number:</label>
+    <input type="text" id="mobile" pattern="\d{10}" required>
+
+    <label for="condition">Medical Condition:</label>
+    <textarea id="condition" rows="3" required></textarea>
+
+    <button type="submit">Register</button>
+  </form>
+
+  <!-- Registration Receipt -->
+  <div id="receipt">
+    <div class="hospital-header">
+      <h2>🏥 Sandeep Hospital</h2>
+      <p>Maharajganj, Gorakhpur Road, Uttar Pradesh - 273303</p>
+      <p>Mobile: +91-7985126471</p>
+      <hr>
+      <h3>Patient Registration Receipt</h3>
+    </div>
+    <p><strong>Registration ID:</strong> <span id="regId"></span></p>
+    <table>
+      <tr><th>Patient Name</th><td id="rName"></td></tr>
+      <tr><th>Age</th><td id="rAge"></td></tr>
+      <tr><th>Gender</th><td id="rGender"></td></tr>
+      <tr><th>Mobile</th><td id="rMobile"></td></tr>
+      <tr><th>Medical Condition</th><td id="rCondition"></td></tr>
+      <tr><th>Date</th><td id="rDate"></td></tr>
+    </table>
+    <div class="footer">💙🙂♥️ Thank You - Wishing You Good Health</div>
+    <button onclick="window.print()">Print Receipt</button>
+  </div>
+
+  <script>
+    document.getElementById("registrationForm").addEventListener("submit", function(e){
+      e.preventDefault();
+
+      const regId = "REG-" + Math.floor(Math.random()*9000 + 1000);
+      document.getElementById("regId").innerText = regId;
+      document.getElementById("rName").innerText = document.getElementById("name").value;
+      document.getElementById("rAge").innerText = document.getElementById("age").value;
+      document.getElementById("rGender").innerText = document.getElementById("gender").value;
+      document.getElementById("rMobile").innerText = document.getElementById("mobile").value;
+      document.getElementById("rCondition").innerText = document.getElementById("condition").value;
+
+      const today = new Date();
+      const formatted = today.getDate() + "/" + (today.getMonth()+1) + "/" + today.getFullYear();
+      document.getElementById("rDate").innerText = formatted;
+
+      document.getElementById("receipt").style.display = "block";
+      document.getElementById("registrationForm").reset();
+    });
+  </script>
+</body>
+</html>

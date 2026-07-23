@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Medical Records - Sandeep Hospital</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #65e4cf;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: #3a2bdc;
+      color: white;
+      padding: 10px;
+      text-align: center;
+    }
+    nav {
+      background: #0d2867;
+      text-align: center;
+      padding: 10px;
+    }
+    nav a {
+      color: white;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    main {
+      padding: 20px;
+    }
+    form {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+      max-width: 500px;
+      margin: auto;
+    }
+    form input, form textarea, form button {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    form button {
+      background: #2b5fdc;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .print-btn {
+      margin-top: 15px;
+      background: green;
+      padding: 10px;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    footer {
+      background: #2b5fdc;
+      color: white;
+      text-align: center;
+      padding: 10px;
+      margin-top: 40px;
+    }
+    #printRecord {
+      background:#fff;
+      padding:20px;
+      border:1px solid #ccc;
+      border-radius:10px;
+      margin-top:15px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+    table, th, td {
+      border: 1px solid #888;
+      padding: 8px;
+    }
+    th {
+      background: #eee;
+    }
+    /* Print style */
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+      #printRecord, #printRecord * {
+        visibility: visible;
+      }
+      #printRecord {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+      }
+    }
+  </style>
+  <script>
+    let recordCounter = 1000; // starting ID
+
+    function generateRecord(event) {
+      event.preventDefault();
+
+      recordCounter++;
+
+      let pname = document.getElementById("pname").value;
+      let disease = document.getElementById("disease").value;
+      let medicines = document.getElementById("medicines").value;
+      let doctor = document.getElementById("doctor").value;
+
+      // Auto Date
+      let today = new Date();
+      let date = today.toLocaleDateString();
+
+      let recordContent = `
+        <div style="text-align:center;">
+          <h2 style="margin:0;">🏥 Sandeep Hospital</h2>
+          <p style="margin:0;">Maharajganj, Gorakhpur Road, Uttar Pradesh - 273303</p>
+          <p style="margin:0;">Mobile: +91-7985126471</p>
+          <hr>
+        </div>
+        <h3 style="text-align:center;">Patient Medical Record</h3>
+        <p><strong>Record ID:</strong> REC-${recordCounter}</p>
+        <table>
+          <tr><th>Patient Name</th><td>${pname}</td></tr>
+          <tr><th>Disease / Diagnosis</th><td>${disease}</td></tr>
+          <tr><th>Prescribed Medicines</th><td>${medicines}</td></tr>
+          <tr><th>Doctor Name</th><td>${doctor}</td></tr>
+          <tr><th>Date</th><td>${date}</td></tr>
+        </table>
+        <p style="text-align:center; margin-top:20px;">💙🙂♥️ Get Well Soon - Sandeep Hospital</p>
+      `;
+
+      document.getElementById("printRecord").innerHTML = recordContent;
+      document.getElementById("recordForm").reset();
+    }
+
+    function printRecord() {
+      window.print();
+    }
+  </script>
+</head>
+<body>
+
+  <header>
+    <h1>Medical Records - Sandeep Hospital</h1>
+  </header>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="doctors.html">Doctors</a>
+    <a href="patient.html">Patient Registration</a>
+    <a href="billing.html">Billing</a>
+    <a href="medical.html">Medical Records</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+
+  <main>
+    <h2>Create Patient Medical Record</h2>
+    <form id="recordForm" onsubmit="generateRecord(event)">
+      <label for="pname">Patient Name:</label>
+      <input type="text" id="pname" name="pname" required>
+
+      <label for="disease">Disease / Diagnosis:</label>
+      <input type="text" id="disease" name="disease" required>
+
+      <label for="medicines">Prescribed Medicines:</label>
+      <textarea id="medicines" name="medicines" rows="3" required></textarea>
+
+      <label for="doctor">Doctor Name:</label>
+      <input type="text" id="doctor" name="doctor" required>
+
+      <button type="submit">Generate Record</button>
+    </form>
+
+    <section>
+      <h3>Record Preview</h3>
+      <div id="printRecord">
+        <p>No record generated yet.</p>
+      </div>
+      <button class="print-btn" onclick="printRecord()">Print Record</button>
+    </section>
+  </main>
+
+  <footer>
+    <p>We also manage billing, and medical records, ensuring streamlined healthcare operations.</p>
+    <p>&copy; 2025 Sandeep Hospital</p>
+  </footer>
+
+</body>
+</html>

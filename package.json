@@ -1,0 +1,25 @@
+{
+  "name": "sandeep-hospital-management",
+  "version": "1.0.0",
+  "description": "Sandeep Hospital Management System - Full Stack MERN Application",
+  "private": true,
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev -w backend\" \"npm run dev -w frontend\"",
+    "build": "npm run build --workspaces",
+    "start": "npm start -w backend",
+    "start-frontend": "npm run dev -w frontend",
+    "start-backend": "npm start -w backend",
+    "dev-backend": "npm run dev -w backend",
+    "dev-frontend": "npm run dev -w frontend",
+    "seed": "npm run seed -w backend"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "author": "Antigravity",
+  "license": "ISC"
+}

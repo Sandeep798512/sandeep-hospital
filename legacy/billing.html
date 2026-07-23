@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta-name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Billing - Sandeep Hospital</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #5fd8cc;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: #3a2bdc;
+      color: white;
+      padding: 15px;
+      text-align: center;
+    }
+    nav {
+      background: #0f2966;
+      text-align: center;
+      padding: 10px;
+    }
+    nav a {
+      color: white;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    main {
+      padding: 20px;
+    }
+
+    /* Form */
+    form {
+      background: #f9fcfc;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+      max-width: 500px;
+      margin: auto;
+    }
+    form input, form button {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    form button {
+      background: #2b5fdc;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .pay-btn {
+      background: #e08d15;
+      color: white;
+      padding: 10px;
+      width: 100%;
+      margin-top: 10px;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    .confirm-btn {
+      background: green;
+      color: white;
+      padding: 10px;
+      width: 100%;
+      margin-top: 10px;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    /* Bill Preview */
+    #billPreview {
+      background:#6ecae0;
+      padding:20px;
+      border:1px solid #ccc;
+      border-radius:10px;
+      margin-top:15px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+    table, th, td {
+      border: 1px solid #888;
+      padding: 8px;
+    }
+    th {
+      background: #eee;
+    }
+
+    /* Print */
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+      #billPreview, #billPreview * {
+        visibility: visible;
+      }
+      #billPreview {
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
+    }
+  </style>
+
+  <script>
+    let billCounter = 5000;
+    let paymentStatus = "Unpaid ❌";
+
+    function generateBill(event) {
+      event.preventDefault();
+      billCounter++;
+
+      let pname = document.getElementById("pname").value;
+      let treatment = document.getElementById("treatment").value;
+      let amount = document.getElementById("amount").value;
+
+      // GET DATE
+      let today = new Date();
+      let date = today.toLocaleDateString();
+
+      // BILL CONTENT
+      let billContent = `
+        <div style="text-align:center;">
+          <h2>🏥 Sandeep Hospital</h2>
+          <p>Maharajganj, Gorakhpur Road, Uttar Pradesh</p>
+          <p>Mobile: +91-7985126471</p>
+          <hr>
+        </div>
+
+        <h3 style="text-align:center;">Patient Billing Receipt</h3>
+
+        <p><strong>Bill ID:</strong> BILL-${billCounter}</p>
+
+        <table>
+          <tr><th>Patient Name</th><td>${pname}</td></tr>
+          <tr><th>Treatment / Service</th><td>${treatment}</td></tr>
+          <tr><th>Total Amount</th><td>₹${amount}</td></tr>
+          <tr><th>Payment Status</th><td>${paymentStatus}</td></tr>
+          <tr><th>Date</th><td>${date}</td></tr>
+        </table>
+
+        <p style="text-align:center; margin-top:20px;">💙 Thank You - Get Well Soon</p>
+      `;
+
+      document.getElementById("billPreview").innerHTML = billContent;
+
+      // Show QR Payment
+      document.getElementById("qrPayBox").style.display = "block";
+    }
+
+    function confirmPayment() {
+      paymentStatus = "Paid ✔";
+
+      alert("Payment Confirmed!");
+
+      generateBill(event); // Update bill with PAID
+    }
+
+    function printBill() {
+      window.print();
+    }
+  </script>
+
+</head>
+<body>
+
+<header>
+  <h1>Billing - Sandeep Hospital</h1>
+</header>
+
+<nav>
+  <a href="index.html">Home</a>
+  <a href="doctors.html">Doctors</a>
+  <a href="patient.html">Patient Registration</a>
+  <a href="billing.html">Billing</a>
+  <a href="medical.html">Medical Records</a>
+  <a href="contact.html">Contact</a>
+</nav>
+
+<main>
+  <h2>Generate Patient Bill</h2>
+
+  <form id="billForm" onsubmit="generateBill(event)">
+    <label>Patient Name:</label>
+    <input type="text" id="pname" required>
+
+    <label>Treatment / Service:</label>
+    <input type="text" id="treatment" required>
+
+    <label>Total Amount (₹):</label>
+    <input type="number" id="amount" required>
+
+    <button type="submit">Generate Bill</button>
+  </form>
+
+  <!-- QR PAYMENT BOX -->
+  <div id="qrPayBox" style="display:none;max-width:500px;margin:auto;margin-top:20px;background:#fff;padding:20px;border-radius:10px;text-align:center;">
+
+    <h3>UPI QR Payment</h3>
+    <p>Scan & Pay using any UPI App</p>
+
+    <!-- Your QR IMAGE -->
+    <img src="QR.jpg" width="250" style="border:5px solid #2b5fdc;border-radius:10px">
+
+    <button class="confirm-btn" onclick="confirmPayment()">I Have Paid ✔</button>
+
+  </div>
+
+  <!-- BILL PREVIEW -->
+  <section>
+    <h3>Bill Preview</h3>
+
+    <div id="billPreview">
+      <p>No bill generated yet.</p>
+    </div>
+
+    <button class="print-btn" onclick="printBill()">Print Bill</button>
+  </section>
+
+</main>
+
+<footer>
+  <p>We also manage billing and medical records for smooth hospital operations.</p>
+  <p>© 2025 Sandeep Hospital</p>
+</footer>
+
+</body>
+</html>
+
