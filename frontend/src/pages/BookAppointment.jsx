@@ -27,6 +27,21 @@ const BookAppointment = () => {
     return name.startsWith('Dr.') ? name : `Dr. ${name}`;
   };
 
+  const getDoctorImage = (doc) => {
+    const email = doc.user?.email || '';
+    const name = doc.user?.name || '';
+    const img = doc.user?.profileImage;
+
+    if (img && !img.includes('dicebear')) {
+      return img;
+    }
+    if (email.includes('priya') || name.includes('Priya')) return '/priya.jpg';
+    if (email.includes('rahul') || name.includes('Rahul')) return '/rahul v.jpg';
+    if (email.includes('rajesh') || name.includes('Rajesh') || name.includes('Sandeep')) return '/sandy.jpg';
+
+    return img || '/sandy.jpg';
+  };
+
   useEffect(() => {
     const fetchDoctors = async () => {
       try {
@@ -99,9 +114,9 @@ const BookAppointment = () => {
                 }`}
               >
                 <img
-                  src={doc.user?.profileImage || `https://api.dicebear.com/7.x/adventurer/svg?seed=${doc.user?.name}`}
+                  src={getDoctorImage(doc)}
                   alt={doc.user?.name}
-                  className="w-14 h-14 rounded-2xl object-cover border border-slate-300 dark:border-slate-700"
+                  className="w-16 h-16 rounded-2xl object-cover border-2 border-primary-500/30 shadow-md flex-shrink-0"
                 />
                 <div className="flex-grow">
                   <div className="flex items-center justify-between">

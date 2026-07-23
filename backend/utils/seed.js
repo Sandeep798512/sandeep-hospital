@@ -31,6 +31,7 @@ const seedDB = async () => {
       password: 'Password123',
       role: 'admin',
       isEmailVerified: true,
+      profileImage: '/SANDEEP GAUD.JPG',
     });
     console.log('Seeded Admin: admin@hospital.com / Password123');
 
@@ -57,6 +58,7 @@ const seedDB = async () => {
         schedule: { start: '09:00', end: '15:00' },
         specialties: ['Heart Failures', 'Angioplasty'],
         bio: 'Senior cardiologist with 12+ years of experience in cardiovascular interventions.',
+        profileImage: '/priya.jpg',
       },
       {
         name: 'Dr. Rahul Verma',
@@ -69,6 +71,7 @@ const seedDB = async () => {
         schedule: { start: '10:00', end: '16:00' },
         specialties: ['Stroke Management', 'Epilepsy'],
         bio: 'Dedicated neurologist specializing in neuro-developmental disorders and epilepsy care.',
+        profileImage: '/rahul v.jpg',
       },
       {
         name: 'Dr. Rajesh Patel',
@@ -81,6 +84,7 @@ const seedDB = async () => {
         schedule: { start: '09:00', end: '17:00' },
         specialties: ['Chronic Illnesses', 'Preventive Care'],
         bio: 'General family physician with a focus on comprehensive health maintenance and diagnostic services.',
+        profileImage: '/sandy.jpg',
       },
     ];
 
@@ -92,6 +96,7 @@ const seedDB = async () => {
         password: doc.password,
         role: 'doctor',
         isEmailVerified: true,
+        profileImage: doc.profileImage,
       });
 
       const d = await Doctor.create({
@@ -213,7 +218,7 @@ const seedDB = async () => {
         labCharges: 1500,
         discount: 150,
         gst: 18,
-        totalAmount: 2950, // Calculated value
+        totalAmount: 2950,
         paymentStatus: 'Paid',
         paymentMethod: 'UPI',
         transactionId: 'TXN82649275918',
