@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import API from '../utils/api';
+import { useAuth } from '../context/AuthContext';
 import GlassCard from '../components/GlassCard';
 import Loader from '../components/Loader';
 import Toast from '../components/Toast';
 import { 
   FolderHeart, Receipt, FileText, Download, Upload, 
-  Trash2, Plus, Calendar, FileType, CheckCircle 
+  Trash2, Plus, Calendar, FileType, CheckCircle, CreditCard 
 } from 'lucide-react';
 
 const PatientHistory = () => {
+  const { user } = useAuth();
   const [loading, setLoading] = useState(true);
   const [toast, setToast] = useState(null);
   
@@ -89,6 +91,69 @@ const PatientHistory = () => {
     }
   };
 
+  const handleRazorpayPay = async (bill) => {
+    try {
+      const res = await API.post(`/bills/${bill._id}/razorpay-order`);
+      if (res.data.success) {
+        const { order, key } = res.data;
+
+        const options = {
+          key: key,
+          amount: order.amount,
+          currency: order.currency,
+          name: 'Sandeep Super Specialty Hospital',
+          description: `Invoice Payment (${bill.invoiceNumber})`,
+          image: '/SANDEEP GAUD.JPG',
+          order_id: order.id,
+          handler: async function (response) {
+            try {
+              const verifyRes = await API.post(`/bills/${bill._id}/razorpay-verify`, {
+                paymentId: response.razorpay_payment_id || `pay_${Date.now()}`,
+                orderId: response.razorpay_order_id,
+                signature: response.razorpay_signature,
+              });
+
+              if (verifyRes.data.success) {
+                setToast({ type: 'success', message: 'Razorpay Payment Successful! Invoice status updated.' });
+                fetchHistoryData();
+              }
+            } catch (err) {
+              setToast({ type: 'error', message: 'Payment verification failed' });
+            }
+          },
+          prefill: {
+            name: user?.name || 'Patient',
+            email: user?.email || 'patient@hospital.com',
+            contact: '+917985126471',
+          },
+          theme: {
+            color: '#3a2bdc',
+          },
+        };
+
+        if (window.Razorpay) {
+          const rzp = new window.Razorpay(options);
+          rzp.open();
+        } else {
+          const confirmPay = window.confirm(`Simulate Razorpay Test Payment of ₹${bill.totalAmount.toFixed(2)} for invoice ${bill.invoiceNumber}?`);
+          if (confirmPay) {
+            const verifyRes = await API.post(`/bills/${bill._id}/razorpay-verify`, {
+              paymentId: `pay_simulated_${Date.now()}`,
+              orderId: order.id,
+              signature: 'simulated_sig',
+            });
+            if (verifyRes.data.success) {
+              setToast({ type: 'success', message: 'Razorpay Test Payment Recorded! Bill is Paid.' });
+              fetchHistoryData();
+            }
+          }
+        }
+      }
+    } catch (err) {
+      setToast({ type: 'error', message: err.response?.data?.message || 'Failed to initiate Razorpay payment' });
+    }
+  };
+
   const handleUploadReport = async (e) => {
     e.preventDefault();
     if (!reportTitle || !reportFile) {
@@ -103,7 +168,6 @@ const PatientHistory = () => {
     formData.append('reportFile', reportFile);
 
     try {
-      // Find patient profile to link report
       const meRes = await API.get('/auth/me');
       if (meRes.data.success && meRes.data.profile) {
         formData.append('patientId', meRes.data.profile._id);
@@ -119,7 +183,7 @@ const PatientHistory = () => {
         }
       }
     } catch (err) {
-      setToast({ type: 'error', message: 'Failed to upload report' });
+      setToast({ type: 'error', message: 'Failed to upload diagnostic report' });
     } finally {
       setUploading(false);
     }
@@ -129,28 +193,29 @@ const PatientHistory = () => {
 
   return (
     <div className="space-y-6">
-      {/* Title */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-slate-800 dark:text-white">Medical Records & History</h1>
-          <p className="text-sm text-slate-500 dark:text-slate-400">Access invoices, prescription advice, and upload external reports</p>
+          <h1 className="text-2xl font-bold text-slate-800 dark:text-white">Medical Records & Invoices</h1>
+          <p className="text-sm text-slate-500 dark:text-slate-400">Access your historical prescriptions, diagnostic lab files, and billing receipts</p>
         </div>
-        <button
-          onClick={() => setShowUploadModal(true)}
-          className="flex items-center space-x-1.5 px-4 py-2 rounded-xl bg-gradient-to-r from-primary-500 to-primary-600 text-white font-bold text-xs shadow-lg transition-all"
-        >
-          <Upload className="w-4 h-4" />
-          <span>Upload Lab Report</span>
-        </button>
+        <div>
+          <button
+            onClick={() => setShowUploadModal(true)}
+            className="flex items-center space-x-1.5 px-4 py-2.5 rounded-xl bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-white font-bold text-xs shadow-lg transition-all"
+          >
+            <Upload className="w-4 h-4" />
+            <span>Upload Lab File</span>
+          </button>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         
-        {/* Prescriptions lists */}
+        {/* Prescriptions */}
         <GlassCard>
           <h3 className="text-sm font-bold text-slate-500 uppercase tracking-wider mb-4 pb-2 border-b border-slate-200/30 dark:border-slate-800/20 flex items-center space-x-2">
-            <FolderHeart className="w-4.5 h-4.5 text-indigo-500" />
-            <span>Prescriptions</span>
+            <FileText className="w-4.5 h-4.5 text-indigo-500" />
+            <span>Doctor Prescriptions</span>
           </h3>
 
           <div className="space-y-3 max-h-[400px] overflow-y-auto pr-1">
@@ -200,13 +265,26 @@ const PatientHistory = () => {
                     <p className="text-[10px] text-slate-400 mt-1.5">Total Amount: ₹{bill.totalAmount.toFixed(2)}</p>
                     <span className="text-[9px] text-slate-550 block mt-0.5">{new Date(bill.date).toLocaleDateString()}</span>
                   </div>
-                  <button
-                    onClick={() => handleDownloadInvoice(bill._id, bill.invoiceNumber)}
-                    className="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-900 dark:hover:bg-slate-800 text-slate-500 hover:text-cyan-500 transition-colors"
-                    title="Download Invoice PDF"
-                  >
-                    <Download className="w-4 h-4" />
-                  </button>
+                  
+                  <div className="flex items-center space-x-2">
+                    {bill.paymentStatus !== 'Paid' && (
+                      <button
+                        onClick={() => handleRazorpayPay(bill)}
+                        className="flex items-center space-x-1 px-2.5 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-[10px] shadow transition-all"
+                        title="Pay online via Razorpay"
+                      >
+                        <CreditCard className="w-3.5 h-3.5" />
+                        <span>Pay Now</span>
+                      </button>
+                    )}
+                    <button
+                      onClick={() => handleDownloadInvoice(bill._id, bill.invoiceNumber)}
+                      className="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-900 dark:hover:bg-slate-800 text-slate-500 hover:text-cyan-500 transition-colors"
+                      title="Download Invoice PDF"
+                    >
+                      <Download className="w-4 h-4" />
+                    </button>
+                  </div>
                 </div>
               ))
             ) : (
@@ -243,67 +321,75 @@ const PatientHistory = () => {
                 </div>
               ))
             ) : (
-              <div className="py-12 text-center text-slate-400 text-xs">No reports uploaded yet</div>
+              <div className="py-12 text-center text-slate-400 text-xs">No diagnostic reports uploaded</div>
             )}
           </div>
         </GlassCard>
 
       </div>
 
-      {/* MODAL: UPLOAD REPORT */}
+      {/* Upload Modal */}
       {showUploadModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md">
-          <GlassCard className="w-full max-w-md border border-white/20 dark:border-slate-800/20">
-            <div className="flex items-center justify-between border-b border-slate-200/30 dark:border-slate-800/20 pb-4 mb-4">
-              <h3 className="text-sm font-bold text-slate-800 dark:text-white uppercase tracking-wider">Upload Lab Medical Report</h3>
-              <button onClick={() => setShowUploadModal(false)} className="text-slate-400 hover:text-white font-bold">✕</button>
-            </div>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/60 backdrop-blur-sm p-4 animate-fadeIn">
+          <div className="w-full max-w-md">
+            <GlassCard className="space-y-4">
+              <h3 className="text-base font-bold text-slate-800 dark:text-white">Upload Medical Report</h3>
+              <form onSubmit={handleUploadReport} className="space-y-4 text-xs">
+                <div>
+                  <label className="block text-[10px] font-bold uppercase text-slate-500 mb-1">Report Title *</label>
+                  <input
+                    type="text"
+                    required
+                    value={reportTitle}
+                    onChange={(e) => setReportTitle(e.target.value)}
+                    className="w-full px-3 py-2 rounded-xl bg-slate-100/50 dark:bg-slate-900 border border-slate-300/30 dark:border-slate-800 focus:outline-none"
+                    placeholder="e.g. Lipid Profile Scan"
+                  />
+                </div>
 
-            <form onSubmit={handleUploadReport} className="space-y-4 text-xs">
-              <div>
-                <label className="block text-[10px] font-bold uppercase text-slate-500 mb-1">Report Title *</label>
-                <input
-                  type="text"
-                  required
-                  value={reportTitle}
-                  onChange={e => setReportTitle(e.target.value)}
-                  className="w-full px-3 py-2 rounded-xl bg-slate-100/50 dark:bg-slate-900 border border-slate-300/30 dark:border-slate-800 focus:outline-none"
-                  placeholder="e.g. Chest X-Ray Report"
-                />
-              </div>
+                <div>
+                  <label className="block text-[10px] font-bold uppercase text-slate-500 mb-1">Report Category</label>
+                  <select
+                    value={reportType}
+                    onChange={(e) => setReportType(e.target.value)}
+                    className="w-full px-3 py-2 rounded-xl bg-slate-100/50 dark:bg-slate-900 border border-slate-300/30 dark:border-slate-800 focus:outline-none text-slate-700 dark:text-slate-300"
+                  >
+                    <option value="Lab Report">Lab Report</option>
+                    <option value="X-Ray / Scan">X-Ray / Scan</option>
+                    <option value="Discharge Summary">Discharge Summary</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
 
-              <div>
-                <label className="block text-[10px] font-bold uppercase text-slate-500 mb-1">Report Category *</label>
-                <select
-                  value={reportType}
-                  onChange={e => setReportType(e.target.value)}
-                  className="w-full px-3 py-2 rounded-xl bg-slate-100/50 dark:bg-slate-900 border border-slate-300/30 dark:border-slate-800 text-slate-700 dark:text-slate-300 focus:outline-none"
-                >
-                  {['X-Ray', 'MRI', 'CT Scan', 'Prescription', 'Lab Report', 'PDF', 'Other'].map(cat => (
-                    <option key={cat} value={cat}>{cat}</option>
-                  ))}
-                </select>
-              </div>
+                <div>
+                  <label className="block text-[10px] font-bold uppercase text-slate-500 mb-1">Attachment File (PDF, Image) *</label>
+                  <input
+                    type="file"
+                    required
+                    onChange={(e) => setReportFile(e.target.files[0])}
+                    className="w-full text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-primary-500/10 file:text-primary-500 hover:file:bg-primary-500/20"
+                  />
+                </div>
 
-              <div>
-                <label className="block text-[10px] font-bold uppercase text-slate-500 mb-1">Select File (PDF / Images) *</label>
-                <input
-                  type="file"
-                  required
-                  onChange={e => setReportFile(e.target.files[0])}
-                  className="w-full text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-primary-500/10 file:text-primary-500 hover:file:bg-primary-500/20"
-                />
-              </div>
-
-              <button
-                type="submit"
-                disabled={uploading}
-                className="w-full py-2.5 rounded-xl bg-gradient-to-r from-primary-500 to-primary-600 text-white font-bold shadow-lg transition-all"
-              >
-                {uploading ? 'Uploading File...' : 'Upload Medical File'}
-              </button>
-            </form>
-          </GlassCard>
+                <div className="flex justify-end space-x-2 pt-2">
+                  <button
+                    type="button"
+                    onClick={() => setShowUploadModal(false)}
+                    className="px-4 py-2 rounded-xl bg-slate-200/50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-bold"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={uploading}
+                    className="px-4 py-2 rounded-xl bg-primary-500 text-white font-bold"
+                  >
+                    {uploading ? 'Uploading...' : 'Upload File'}
+                  </button>
+                </div>
+              </form>
+            </GlassCard>
+          </div>
         </div>
       )}
 

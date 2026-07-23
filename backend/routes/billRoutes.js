@@ -4,6 +4,8 @@ const {
   getBillById,
   createBill,
   updateBill,
+  createRazorpayOrder,
+  verifyRazorpayPayment,
   downloadInvoicePDF,
   deleteBill,
 } = require('../controllers/billController');
@@ -18,6 +20,8 @@ router.get('/', getBills);
 router.get('/:id', getBillById);
 router.post('/', authorize('admin', 'receptionist'), createBill);
 router.put('/:id', authorize('admin', 'receptionist'), updateBill);
+router.post('/:id/razorpay-order', createRazorpayOrder);
+router.post('/:id/razorpay-verify', verifyRazorpayPayment);
 router.get('/:id/pdf', downloadInvoicePDF);
 router.delete('/:id', authorize('admin'), deleteBill);
 

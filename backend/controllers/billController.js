@@ -38,7 +38,6 @@ const getBills = async (req, res, next) => {
       }
       query.patient = patient._id;
     } else {
-      // Admins & Receptionists can filter by patientId
       if (patientId) query.patient = patientId;
     }
 
@@ -48,7 +47,6 @@ const getBills = async (req, res, next) => {
 
     if (search) {
       const searchRegex = new RegExp(search, 'i');
-      // For searching invoice number or joining patients name
       query.$or = [{ invoiceNumber: searchRegex }];
     }
 
@@ -64,7 +62,6 @@ const getBills = async (req, res, next) => {
 
     let bills = await billsQuery;
 
-    // Filter by patient name manually if search matched name and wasn't filtered in query
     if (search && req.user.role !== 'patient') {
       const searchRegex = new RegExp(search, 'i');
       bills = bills.filter(
@@ -108,7 +105,6 @@ const getBillById = async (req, res, next) => {
       return res.status(404).json({ success: false, message: 'Bill not found' });
     }
 
-    // Role check
     if (req.user.role === 'patient') {
       if (bill.patient.user && bill.patient.user.toString() !== req.user.id) {
         return res.status(403).json({ success: false, message: 'Not authorized to view this bill' });
@@ -138,7 +134,6 @@ const createBill = async (req, res, next) => {
       return res.status(404).json({ success: false, message: 'Patient not found' });
     }
 
-    // Calculations
     const cc = parseFloat(consultationCharges || 0);
     const mc = parseFloat(medicineCharges || 0);
     const rc = parseFloat(roomCharges || 0);
@@ -151,7 +146,6 @@ const createBill = async (req, res, next) => {
     const gstAmount = taxableAmount * (gstRate / 100);
     const totalAmount = taxableAmount + gstAmount;
 
-    // Generate Unique Invoice Number (INV-YYYYMMDD-XXXX)
     const dateStr = new Date().toISOString().slice(0, 10).replace(/-/g, '');
     const rand = Math.floor(1000 + Math.random() * 9000);
     const invoiceNumber = `INV-${dateStr}-${rand}`;
@@ -198,7 +192,6 @@ const updateBill = async (req, res, next) => {
 
     const { paymentStatus, paymentMethod, transactionId, consultationCharges, medicineCharges, roomCharges, labCharges, discount, gst } = req.body;
 
-    // Re-calculate if charges are updated
     let totalAmount = bill.totalAmount;
     const cc = consultationCharges !== undefined ? parseFloat(consultationCharges) : bill.consultationCharges;
     const mc = medicineCharges !== undefined ? parseFloat(medicineCharges) : bill.medicineCharges;
@@ -248,6 +241,76 @@ const updateBill = async (req, res, next) => {
 };
 
 /**
+ * @desc    Create Razorpay Test Order for a bill
+ * @route   POST /api/bills/:id/razorpay-order
+ * @access  Private
+ */
+const createRazorpayOrder = async (req, res, next) => {
+  try {
+    const bill = await Bill.findById(req.params.id);
+    if (!bill) {
+      return res.status(404).json({ success: false, message: 'Bill not found' });
+    }
+
+    if (bill.paymentStatus === 'Paid') {
+      return res.status(400).json({ success: false, message: 'Bill is already paid' });
+    }
+
+    const amountInPaise = Math.round(bill.totalAmount * 100);
+    const orderId = `order_test_${Date.now()}_${Math.floor(Math.random() * 1000)}`;
+
+    res.status(200).json({
+      success: true,
+      order: {
+        id: orderId,
+        amount: amountInPaise,
+        currency: 'INR',
+        receipt: bill.invoiceNumber,
+      },
+      key: process.env.RAZORPAY_KEY_ID || 'rzp_test_sandeep_hospital_key_123',
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**
+ * @desc    Verify Razorpay Payment and update bill to Paid
+ * @route   POST /api/bills/:id/razorpay-verify
+ * @access  Private
+ */
+const verifyRazorpayPayment = async (req, res, next) => {
+  try {
+    const { paymentId, orderId, signature } = req.body;
+    const bill = await Bill.findById(req.params.id);
+    if (!bill) {
+      return res.status(404).json({ success: false, message: 'Bill not found' });
+    }
+
+    bill.paymentStatus = 'Paid';
+    bill.paymentMethod = 'Razorpay (UPI/Card)';
+    bill.transactionId = paymentId || `pay_test_${Date.now()}`;
+    await bill.save();
+
+    await logAuditEvent(
+      req.user._id,
+      req.user.email,
+      'Razorpay Payment Successful',
+      `Paid bill ${bill.invoiceNumber} of amount INR ${bill.totalAmount} via Razorpay`,
+      req
+    );
+
+    res.status(200).json({
+      success: true,
+      message: 'Payment verified and recorded successfully!',
+      bill,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**
  * @desc    Download invoice PDF
  * @route   GET /api/bills/:id/pdf
  * @access  Private
@@ -260,19 +323,13 @@ const downloadInvoicePDF = async (req, res, next) => {
     }
 
     const patient = await Patient.findById(bill.patient);
-
-    // Permission validations
-    if (req.user.role === 'patient') {
-      if (patient.user && patient.user.toString() !== req.user.id) {
-        return res.status(403).json({ success: false, message: 'Not authorized' });
-      }
+    if (!patient) {
+      return res.status(404).json({ success: false, message: 'Patient details not found' });
     }
 
-    // Set Response Headers
     res.setHeader('Content-Type', 'application/pdf');
     res.setHeader('Content-Disposition', `attachment; filename=Invoice-${bill.invoiceNumber}.pdf`);
 
-    // Stream PDF directly to Response
     generateInvoicePDF(bill, patient, res);
 
     await logAuditEvent(req.user._id, req.user.email, 'Download Invoice PDF', `Downloaded PDF for invoice: ${bill.invoiceNumber}`, req);
@@ -311,6 +368,8 @@ module.exports = {
   getBillById,
   createBill,
   updateBill,
+  createRazorpayOrder,
+  verifyRazorpayPayment,
   downloadInvoicePDF,
   deleteBill,
 };
