@@ -26,7 +26,7 @@ const seedDB = async () => {
 
     // 1. Create Admins
     const adminUser = await User.create({
-      name: 'Sandeep Gaud (Admin)',
+      name: 'Er. Sandeep Gaud (Admin)',
       email: 'admin@hospital.com',
       password: 'Password123',
       role: 'admin',
@@ -74,16 +74,16 @@ const seedDB = async () => {
         profileImage: '/rahul v.jpg',
       },
       {
-        name: 'Dr. Rajesh Patel',
-        email: 'rajesh.patel@hospital.com',
+        name: 'Dr. Sandeep Gaud',
+        email: 'sandeepgaud8081@gmail.com',
         password: 'Password123',
         department: 'General Physician',
-        experience: 15,
+        experience: 16,
         fees: 400,
         availability: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
         schedule: { start: '09:00', end: '17:00' },
-        specialties: ['Chronic Illnesses', 'Preventive Care'],
-        bio: 'General family physician with a focus on comprehensive health maintenance and diagnostic services.',
+        specialties: ['Chronic Illnesses', 'Preventive Care', 'Healthcare IT'],
+        bio: 'General family physician & Medical Director with a focus on comprehensive health maintenance and diagnostic services.',
         profileImage: '/sandy.jpg',
       },
     ];
@@ -198,7 +198,7 @@ const seedDB = async () => {
     // Today's Pending Appointment
     await Appointment.create({
       patient: patient2._id,
-      doctor: seededDoctors[2]._id, // Dr Rajesh
+      doctor: seededDoctors[2]._id, // Dr Sandeep
       date: today,
       timeSlot: '14:00',
       status: 'Pending',

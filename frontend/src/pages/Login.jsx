@@ -162,7 +162,7 @@ const Login = () => {
             <span>Recruiter Quick Testing Credentials:</span>
           </div>
           <p>• <b>Admin:</b> admin@hospital.com | Password123</p>
-          <p>• <b>Doctor:</b> priya.sharma@hospital.com | Password123</p>
+          <p>• <b>Doctor (Sandeep Gaud):</b> sandeepgaud8081@gmail.com | Password123</p>
           <p>• <b>Receptionist:</b> receptionist@hospital.com | Password123</p>
           <p>• <b>Patient:</b> patient@hospital.com | Password123</p>
         </div>
