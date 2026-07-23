@@ -158,7 +158,7 @@ const PatientHistory = () => {
               prescriptions.map((pres) => (
                 <div key={pres._id} className="p-3.5 rounded-xl bg-slate-100/50 dark:bg-slate-900/40 border border-slate-200/50 dark:border-slate-800/20 flex justify-between items-center hover:border-indigo-500/20 transition-all">
                   <div>
-                    <h4 className="font-bold text-xs text-slate-850 dark:text-slate-200">Rx - Medication Advice</h4>
+                    <h4 className="font-bold text-xs text-slate-900 dark:text-slate-100">Rx - Medication Advice</h4>
                     <p className="text-[10px] text-slate-400 mt-1">Doctor: Dr. {pres.doctor?.user?.name || 'Staff'}</p>
                     <span className="text-[9px] text-slate-550 block mt-1">{new Date(pres.date).toLocaleDateString()}</span>
                   </div>
@@ -190,7 +190,7 @@ const PatientHistory = () => {
                 <div key={bill._id} className="p-3.5 rounded-xl bg-slate-100/50 dark:bg-slate-900/40 border border-slate-200/50 dark:border-slate-800/20 flex justify-between items-center hover:border-accent-cyan/20 transition-all">
                   <div>
                     <div className="flex items-center space-x-1.5">
-                      <span className="font-mono font-bold text-xs text-slate-800 dark:text-slate-250">{bill.invoiceNumber}</span>
+                      <span className="font-mono font-bold text-xs text-slate-900 dark:text-slate-100">{bill.invoiceNumber}</span>
                       <span className={`px-1.5 py-0.5 rounded text-[8px] font-black uppercase ${
                         bill.paymentStatus === 'Paid' ? 'bg-emerald-500/10 text-emerald-500' : 'bg-rose-500/10 text-rose-500'
                       }`}>
@@ -227,7 +227,7 @@ const PatientHistory = () => {
               reports.map((rep) => (
                 <div key={rep._id} className="p-3.5 rounded-xl bg-slate-100/50 dark:bg-slate-900/40 border border-slate-200/50 dark:border-slate-800/20 flex justify-between items-center hover:border-teal-500/20 transition-all">
                   <div>
-                    <h4 className="font-bold text-xs text-slate-850 dark:text-slate-200 truncate max-w-[150px]">{rep.title}</h4>
+                    <h4 className="font-bold text-xs text-slate-900 dark:text-slate-100 truncate max-w-[150px]">{rep.title}</h4>
                     <span className="inline-block mt-1 px-1.5 py-0.5 text-[8px] font-bold text-teal-500 uppercase bg-teal-500/10 rounded">
                       {rep.reportType}
                     </span>

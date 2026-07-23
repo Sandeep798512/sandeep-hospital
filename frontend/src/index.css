@@ -5,39 +5,66 @@ body {
   font-feature-settings: "cv02", "cv03", "cv04", "cv11";
 }
 
-body.dark {
+body.dark, html.dark body {
   @apply bg-slate-950 text-slate-100;
+  background-color: #030a21 !important;
 }
 
 /* Glassmorphism Styles */
 .glass-panel {
-  background: rgba(255, 255, 255, 0.45);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(226, 232, 240, 0.9);
 }
 
 .dark .glass-panel {
-  background: rgba(15, 23, 42, 0.45);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(51, 65, 85, 0.8);
 }
 
 .glass-card {
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.04);
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
 }
 
 .dark .glass-card {
-  background: rgba(30, 41, 59, 0.4);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.04);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+  background: rgba(15, 23, 42, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(51, 65, 85, 0.7);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+}
+
+/* High Contrast Input & Form Control Defaults */
+input, select, textarea {
+  color-scheme: light dark;
+}
+
+.dark input, .dark select, .dark textarea {
+  color: #ffffff !important;
+  background-color: rgba(15, 23, 42, 0.9) !important;
+  border-color: rgba(51, 65, 85, 0.8) !important;
+}
+
+.dark input::placeholder, .dark textarea::placeholder {
+  color: #94a3b8 !important;
+}
+
+/* Table High Contrast Visibility */
+.dark table th {
+  color: #cbd5e1 !important;
+  background-color: rgba(30, 41, 59, 0.9) !important;
+}
+
+.dark table td {
+  color: #f8fafc !important;
+  border-color: rgba(51, 65, 85, 0.5) !important;
 }
 
 /* Custom Scrollbar */
@@ -51,12 +78,12 @@ body.dark {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(156, 163, 175, 0.4);
+  background: rgba(148, 163, 184, 0.5);
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(156, 163, 175, 0.6);
+  background: rgba(148, 163, 184, 0.8);
 }
 
 /* Keyframes & Infinite Gallery Marquee */

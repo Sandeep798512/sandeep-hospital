@@ -231,7 +231,7 @@ const AdminDashboard = () => {
               <div className="p-2 rounded-xl bg-slate-100 dark:bg-slate-900/60">{m.icon}</div>
             </div>
             <div className="mt-4">
-              <h3 className="text-2xl font-black text-slate-850 dark:text-white">{m.value}</h3>
+              <h3 className="text-2xl font-black text-slate-900 dark:text-white">{m.value}</h3>
               <p className="text-[10px] font-semibold text-slate-400 mt-1">{m.desc}</p>
             </div>
           </GlassCard>
