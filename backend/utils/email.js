@@ -4,7 +4,9 @@ const nodemailer = require('nodemailer');
  * Creates Nodemailer transporter dynamically
  */
 const createTransporter = () => {
-  const isGmail = process.env.EMAIL_SERVICE === 'gmail' || (process.env.EMAIL_HOST && process.env.EMAIL_HOST.includes('gmail'));
+  const isGmail = process.env.EMAIL_SERVICE === 'gmail' || 
+                  (process.env.EMAIL_HOST && process.env.EMAIL_HOST.includes('gmail')) ||
+                  (process.env.EMAIL_USER && process.env.EMAIL_USER.includes('@gmail.com'));
   
   if (isGmail) {
     return nodemailer.createTransport({
