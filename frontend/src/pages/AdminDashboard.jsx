@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import API from '../utils/api';
 import GlassCard from '../components/GlassCard';
 import Loader from '../components/Loader';
@@ -34,6 +35,7 @@ ChartJS.register(
 );
 
 const AdminDashboard = () => {
+  const location = useLocation();
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState(null);
   const [toast, setToast] = useState(null);
@@ -41,6 +43,16 @@ const AdminDashboard = () => {
   // Modal states
   const [showDoctorModal, setShowDoctorModal] = useState(false);
   const [showAnnounceModal, setShowAnnounceModal] = useState(false);
+
+  useEffect(() => {
+    if (location.pathname === '/admin/doctors') {
+      setShowDoctorModal(true);
+      setShowAnnounceModal(false);
+    } else if (location.pathname === '/admin/announcements') {
+      setShowAnnounceModal(true);
+      setShowDoctorModal(false);
+    }
+  }, [location.pathname]);
 
   // New Doctor Form State
   const [docName, setDocName] = useState('');

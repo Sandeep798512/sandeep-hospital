@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import API from '../utils/api';
 import GlassCard from '../components/GlassCard';
 import Loader from '../components/Loader';
@@ -9,6 +10,7 @@ import {
 } from 'lucide-react';
 
 const ReceptionistDashboard = () => {
+  const location = useLocation();
   const [loading, setLoading] = useState(true);
   const [toast, setToast] = useState(null);
   
@@ -25,6 +27,22 @@ const ReceptionistDashboard = () => {
   const [showPatientModal, setShowPatientModal] = useState(false);
   const [showApptModal, setShowApptModal] = useState(false);
   const [showBillModal, setShowBillModal] = useState(false);
+
+  useEffect(() => {
+    if (location.pathname === '/receptionist/patients') {
+      setShowPatientModal(true);
+      setShowApptModal(false);
+      setShowBillModal(false);
+    } else if (location.pathname === '/receptionist/appointments') {
+      setShowApptModal(true);
+      setShowPatientModal(false);
+      setShowBillModal(false);
+    } else if (location.pathname === '/receptionist/billing') {
+      setShowBillModal(true);
+      setShowPatientModal(false);
+      setShowApptModal(false);
+    }
+  }, [location.pathname]);
 
   // New Patient Form
   const [patName, setPatName] = useState('');
