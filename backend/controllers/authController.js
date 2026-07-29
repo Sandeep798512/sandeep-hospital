@@ -264,9 +264,14 @@ const forgotPassword = async (req, res, next) => {
   try {
     const { email } = req.body;
 
-    const user = await User.findOne({ email });
+    if (!email) {
+      return res.status(400).json({ success: false, message: 'Please provide registered email address' });
+    }
+
+    const normalizedEmail = email.toLowerCase().trim();
+    const user = await User.findOne({ email: normalizedEmail });
     if (!user) {
-      return res.status(404).json({ success: false, message: 'No user registered with this email' });
+      return res.status(404).json({ success: false, message: 'No account found registered with this email address' });
     }
 
     const otp = Math.floor(100000 + Math.random() * 900000).toString();

@@ -4,16 +4,18 @@ const nodemailer = require('nodemailer');
  * Creates Nodemailer transporter dynamically
  */
 const createTransporter = () => {
+  const emailUser = (process.env.EMAIL_USER || '').trim();
+  const emailPass = (process.env.EMAIL_PASS || '').replace(/\s+/g, '');
   const isGmail = process.env.EMAIL_SERVICE === 'gmail' || 
                   (process.env.EMAIL_HOST && process.env.EMAIL_HOST.includes('gmail')) ||
-                  (process.env.EMAIL_USER && process.env.EMAIL_USER.includes('@gmail.com'));
+                  emailUser.includes('@gmail.com');
   
   if (isGmail) {
     return nodemailer.createTransport({
       service: 'gmail',
       auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
+        user: emailUser,
+        pass: emailPass,
       },
     });
   }
@@ -23,8 +25,8 @@ const createTransporter = () => {
     port: parseInt(process.env.EMAIL_PORT) || 2525,
     secure: process.env.EMAIL_SECURE === 'true',
     auth: {
-      user: process.env.EMAIL_USER || 'dummy_user',
-      pass: process.env.EMAIL_PASS || 'dummy_pass',
+      user: emailUser || 'dummy_user',
+      pass: emailPass || 'dummy_pass',
     },
   });
 };
@@ -37,7 +39,7 @@ const sendEmail = async (options) => {
     const transporter = createTransporter();
 
     const mailOptions = {
-      from: process.env.EMAIL_FROM || '"Sandeep Hospital" <noreply@sandeephospital.com>',
+      from: process.env.EMAIL_FROM || '"Sandeep Hospital" <sandeepgaud8081@gmail.com>',
       to: options.to,
       subject: options.subject,
       text: options.text,
@@ -122,7 +124,6 @@ const sendAppointmentEmail = async (to, apptDetails, actionType = 'Confirmation'
   return sendEmail({ to, subject: `Appointment ${actionType} - Sandeep Hospital`, text: `Appointment ${actionType} for ${apptDetails.date} at ${apptDetails.timeSlot}`, html });
 };
 
-// Export main function with attached helper properties for backwards compatibility
 sendEmail.sendEmail = sendEmail;
 sendEmail.sendOtpEmail = sendOtpEmail;
 sendEmail.sendForgotPasswordEmail = sendForgotPasswordEmail;
