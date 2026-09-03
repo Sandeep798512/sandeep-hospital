@@ -190,7 +190,7 @@ const LandingPage = () => {
               <GlassCard className="p-6 sm:p-8 space-y-6 border border-white/40 dark:border-slate-800/40 shadow-2xl overflow-hidden hover:scale-102 transition-transform">
                 <div className="flex flex-col sm:flex-row items-center gap-5">
                   <img
-                    src="/SANDEEP GAUD.JPG"
+                    src="/SANDEEP.JPG"
                     alt="Sandeep"
                     className="w-28 h-28 sm:w-32 sm:h-32 rounded-3xl object-cover border-4 border-primary-500/30 shadow-xl hover:rotate-2 transition-transform"
                   />
