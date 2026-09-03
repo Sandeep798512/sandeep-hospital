@@ -103,7 +103,7 @@ const PatientHistory = () => {
           currency: order.currency,
           name: 'Sandeep Super Specialty Hospital',
           description: `Invoice Payment (${bill.invoiceNumber})`,
-          image: '/SANDEEP GAUD.JPG',
+          image: '/SANDEEP.JPG',
           order_id: order.id,
           handler: async function (response) {
             try {

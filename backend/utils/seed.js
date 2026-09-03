@@ -31,7 +31,7 @@ const seedDB = async () => {
       password: 'Password123',
       role: 'admin',
       isEmailVerified: true,
-      profileImage: '/SANDEEP GAUD.JPG',
+      profileImage: '/SANDEEP.JPG',
     });
     console.log('Seeded Admin: admin@hospital.com / Password123');
 
