@@ -26,7 +26,7 @@ const seedDB = async () => {
 
     // 1. Create Admins
     const adminUser = await User.create({
-      name: 'Er. Sandeep Gaud (Admin)',
+      name: 'Sandeep (Admin)',
       email: 'admin@hospital.com',
       password: 'Password123',
       role: 'admin',
@@ -74,7 +74,7 @@ const seedDB = async () => {
         profileImage: '/rahul v.jpg',
       },
       {
-        name: 'Dr. Sandeep Gaud',
+        name: 'Dr. Sandeep',
         email: 'sandeepgaud8081@gmail.com',
         password: 'Password123',
         department: 'General Physician',
