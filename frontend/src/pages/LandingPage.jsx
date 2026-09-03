@@ -51,7 +51,7 @@ const LandingPage = () => {
 
   const faqs = [
     { q: 'How do I book an online appointment?', a: 'Click on the "Book Consultation" button on our homepage, log in to your patient portal, choose your specialist doctor, date, and preferred time slot.' },
-    { q: 'Are emergency and ambulance services available 24/7?', a: 'Yes! Our Emergency Department and Critical ICU unit operate 24 hours a day, 365 days a year. Call our emergency hotline +91-7985126471 for immediate assistance.' },
+    { q: 'Are emergency and ambulance services available 24/7?', a: 'Yes! Our Emergency Department and Critical ICU unit operate 24 hours a day, 365 days a year. Call our emergency hotline +91-8081220303 for immediate assistance.' },
     { q: 'Does Sandeep Hospital accept cashless insurance policies?', a: 'We partner with over 35 leading health insurance providers (Star Health, HDFC ERGO, ICICI Lombard, etc.) for cashless hospitalization.' },
     { q: 'Can I download my lab reports and prescriptions online?', a: 'Yes. Once logged into your Patient Portal, you can download all PDF prescriptions, medical invoices, and lab diagnostic files instantly.' },
   ];
@@ -64,10 +64,10 @@ const LandingPage = () => {
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
           <div className="flex items-center space-x-2">
             <PhoneCall className="w-4 h-4 animate-bounce" />
-            <span>24/7 Emergency & Ambulance Hotline: <strong>+91 7985126471</strong></span>
+            <span>24/7 Emergency & Ambulance Hotline: <strong>+91 8081220303</strong></span>
           </div>
           <div className="flex items-center space-x-4 text-[11px]">
-            <span>Maharajganj, Gorakhpur Road, UP</span>
+            <span>Lucknow, Uttar Pradesh</span>
             <span className="hidden md:inline">• NABH Accredited Super Specialty Hospital</span>
             <span className="hidden md:inline">• Cashless TPA Available</span>
           </div>
@@ -148,7 +148,7 @@ const LandingPage = () => {
               </h1>
 
               <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed max-w-xl mx-auto lg:mx-0">
-                Sandeep Super Specialty Hospital brings together top-tier medical specialists, advanced robotic surgical units, and Gemini AI diagnostic assistants for precision clinical care in Maharajganj, UP.
+                Sandeep Super Specialty Hospital brings together top-tier medical specialists, advanced robotic surgical units, and Gemini AI diagnostic assistants for precision clinical care in Lucknow, UP.
               </p>
 
               <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
@@ -395,7 +395,7 @@ const LandingPage = () => {
           <div className="text-center max-w-2xl mx-auto mb-12 space-y-2">
             <span className="text-xs font-bold text-primary-500 uppercase tracking-widest">Get In Touch</span>
             <h2 className="text-3xl font-black text-slate-900 dark:text-white">Contact & Location Information</h2>
-            <p className="text-xs text-slate-500 dark:text-slate-400">Reach out to our helpline or visit our super specialty hospital in Maharajganj.</p>
+            <p className="text-xs text-slate-500 dark:text-slate-400">Reach out to our helpline or visit our super specialty hospital in Lucknow.</p>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -405,8 +405,8 @@ const LandingPage = () => {
               </div>
               <h3 className="font-bold text-base text-slate-900 dark:text-white">Phone & Emergency</h3>
               <p className="text-xs text-slate-500 dark:text-slate-400">24/7 Ambulance Hotline & Desk</p>
-              <a href="tel:+917985126471" className="font-extrabold text-sm text-primary-500 hover:underline block">
-                +91 7985126471
+              <a href="tel:+918081220303" className="font-extrabold text-sm text-primary-500 hover:underline block">
+                +91 8081220303
               </a>
             </GlassCard>
 
@@ -416,8 +416,8 @@ const LandingPage = () => {
               </div>
               <h3 className="font-bold text-base text-slate-900 dark:text-white">Email Address</h3>
               <p className="text-xs text-slate-500 dark:text-slate-400">Direct inquiries & online feedback</p>
-              <a href="mailto:sandeepgaud8081@gmail.com" className="font-extrabold text-sm text-primary-500 hover:underline block">
-                sandeepgaud8081@gmail.com
+              <a href="mailto:softer7985@gmail.com" className="font-extrabold text-sm text-primary-500 hover:underline block">
+                softer7985@gmail.com
               </a>
             </GlassCard>
 
@@ -426,8 +426,8 @@ const LandingPage = () => {
                 <MapPin className="w-6 h-6" />
               </div>
               <h3 className="font-bold text-base text-slate-900 dark:text-white">Hospital Campus</h3>
-              <p className="text-xs text-slate-500 dark:text-slate-400">Maharajganj, Gorakhpur Road, Uttar Pradesh - 273303</p>
-              <a href="https://maps.app.goo.gl/ZZp8FjTLGhQoDEJP7" target="_blank" rel="noreferrer" className="font-extrabold text-xs text-emerald-500 hover:underline flex items-center space-x-1">
+              <p className="text-xs text-slate-500 dark:text-slate-400">Lucknow, Uttar Pradesh</p>
+              <a href="https://maps.google.com" target="_blank" rel="noreferrer" className="font-extrabold text-xs text-emerald-500 hover:underline flex items-center space-x-1">
                 <span>View on Google Maps</span>
                 <ChevronRight className="w-3.5 h-3.5" />
               </a>
@@ -445,7 +445,7 @@ const LandingPage = () => {
               <span className="font-black text-base">SANDEEP HOSPITAL</span>
             </div>
             <p className="text-slate-400 text-[11px] leading-relaxed">
-              Maharajganj, Gorakhpur Road, UP - 273303. NABH Accredited Super Specialty Hospital delivering specialized healthcare, robotic surgical interventions, and AI diagnostics.
+              Lucknow, Uttar Pradesh. NABH Accredited Super Specialty Hospital delivering specialized healthcare, robotic surgical interventions, and AI diagnostics.
             </p>
           </div>
 
@@ -475,15 +475,15 @@ const LandingPage = () => {
             <div className="space-y-2">
               <p className="flex items-center space-x-2 text-rose-400 font-bold text-sm">
                 <Phone className="w-4 h-4" />
-                <span>+91 7985126471</span>
+                <span>+91 8081220303</span>
               </p>
               <p className="flex items-center space-x-2">
                 <Mail className="w-4 h-4" />
-                <span>sandeepgaud8081@gmail.com</span>
+                <span>softer7985@gmail.com</span>
               </p>
               <p className="flex items-center space-x-2">
                 <MapPin className="w-4 h-4" />
-                <span>Maharajganj, Gorakhpur Road, UP</span>
+                <span>Lucknow, Uttar Pradesh</span>
               </p>
             </div>
           </div>
