@@ -16,9 +16,9 @@ const LandingPage = () => {
   // Typewriter animation state for hero heading
   const words = [
     "Our Highest Priority",
-    "Driven by Gemini AI",
-    "Powered by Robotics",
-    "Our Sacred Commitment"
+    "Our Commitment to You",
+    "Smarter, Safer Healthcare",
+    "Precision Care, Every Time"
   ];
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [currentText, setCurrentText] = useState('');
