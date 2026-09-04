@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { 
   Heart, Shield, PhoneCall, Stethoscope, Calendar, 
@@ -12,6 +12,42 @@ import GlassCard from '../components/GlassCard';
 const LandingPage = () => {
   const { isDarkMode, toggleTheme } = useTheme();
   const [openFaq, setOpenFaq] = useState(null);
+
+  // Typewriter animation state for hero heading
+  const words = [
+    "Our Highest Priority",
+    "Driven by Gemini AI",
+    "Powered by Robotics",
+    "Our Sacred Commitment"
+  ];
+  const [currentWordIndex, setCurrentWordIndex] = useState(0);
+  const [currentText, setCurrentText] = useState('');
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    const word = words[currentWordIndex];
+    let typingSpeed = isDeleting ? 45 : 85;
+
+    if (!isDeleting && currentText === word) {
+      typingSpeed = 2200;
+      const timeout = setTimeout(() => setIsDeleting(true), typingSpeed);
+      return () => clearTimeout(timeout);
+    } else if (isDeleting && currentText === '') {
+      setIsDeleting(false);
+      setCurrentWordIndex((prev) => (prev + 1) % words.length);
+      return;
+    }
+
+    const timeout = setTimeout(() => {
+      setCurrentText(
+        isDeleting 
+          ? word.substring(0, currentText.length - 1) 
+          : word.substring(0, currentText.length + 1)
+      );
+    }, typingSpeed);
+
+    return () => clearTimeout(timeout);
+  }, [currentText, isDeleting, currentWordIndex]);
 
   const toggleFaq = (index) => {
     setOpenFaq(openFaq === index ? null : index);
@@ -143,8 +179,12 @@ const LandingPage = () => {
                 <span>Next-Generation MERN & Gemini AI Healthcare Platform</span>
               </div>
 
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 dark:text-white tracking-tight leading-[1.15]">
-                Your Health is <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-blue-600 to-teal-500">Our Highest Priority</span>
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 dark:text-white tracking-tight leading-[1.15] min-h-[2.4em] sm:min-h-[2.2em]">
+                Your Health is{' '}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-blue-500 to-teal-400">
+                  {currentText}
+                </span>
+                <span className="inline-block w-[3px] h-[0.85em] ml-1 bg-indigo-500 animate-pulse align-middle rounded-full"></span>
               </h1>
 
               <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed max-w-xl mx-auto lg:mx-0">
