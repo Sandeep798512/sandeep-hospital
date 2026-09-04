@@ -176,7 +176,7 @@ const LandingPage = () => {
             <div className="space-y-6 text-center lg:text-left">
               <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-600 dark:text-indigo-400 text-xs font-bold">
                 <Sparkles className="w-4 h-4" />
-                <span>Next-Generation MERN & Gemini AI Healthcare Platform</span>
+                <span>AI-Powered Healthcare. Smarter Hospital Management.</span>
               </div>
 
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 dark:text-white tracking-tight leading-[1.15] min-h-[2.4em] sm:min-h-[2.2em]">
