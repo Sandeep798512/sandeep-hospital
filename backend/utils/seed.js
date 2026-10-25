@@ -31,7 +31,7 @@ const seedDB = async () => {
       password: 'Password123',
       role: 'admin',
       isEmailVerified: true,
-      profileImage: '/SANDEEP.JPG',
+      profileImage: '/avatar.jpg',
     });
     console.log('Seeded Admin: admin@hospital.com / Password123');
 
@@ -75,7 +75,7 @@ const seedDB = async () => {
       },
       {
         name: 'Dr. Sandeep',
-        email: 'sandeepgaud8081@gmail.com',
+        email: 'doctor@hospital.com',
         password: 'Password123',
         department: 'General Physician',
         experience: 16,
@@ -84,7 +84,7 @@ const seedDB = async () => {
         schedule: { start: '09:00', end: '17:00' },
         specialties: ['Chronic Illnesses', 'Preventive Care', 'Healthcare IT'],
         bio: 'General family physician & Medical Director with a focus on comprehensive health maintenance and diagnostic services.',
-        profileImage: '/sandy.jpg',
+        profileImage: '/avatar.jpg',
       },
     ];
 

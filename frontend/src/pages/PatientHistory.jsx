@@ -103,7 +103,7 @@ const PatientHistory = () => {
           currency: order.currency,
           name: 'Sandeep Super Specialty Hospital',
           description: `Invoice Payment (${bill.invoiceNumber})`,
-          image: '/SANDEEP.JPG',
+          image: '/avatar.jpg',
           order_id: order.id,
           handler: async function (response) {
             try {
@@ -124,7 +124,7 @@ const PatientHistory = () => {
           prefill: {
             name: user?.name || 'Patient',
             email: user?.email || 'patient@hospital.com',
-            contact: '+917985126471',
+            contact: '+919876543210',
           },
           theme: {
             color: '#3a2bdc',

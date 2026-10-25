@@ -72,7 +72,7 @@ An industry-level, production-ready, and recruiter-friendly Hospital Management 
    JWT_EXPIRES_IN=7d
    
    # SMTP Email Configuration
-   EMAIL_USER=sandeepgaud8081@gmail.com
+   EMAIL_USER=care.hospitaldesk@gmail.com
    EMAIL_PASS=your_gmail_app_password
    
    # Gemini API Key
@@ -128,6 +128,6 @@ An industry-level, production-ready, and recruiter-friendly Hospital Management 
 ## 🔑 Recruiter Quick Test Credentials
 
 - **Admin Account**: `admin@hospital.com` | `Password123`
-- **Founder Doctor Account**: `sandeepgaud8081@gmail.com` | `Password123`
+- **Founder Doctor Account**: `doctor@hospital.com` | `Password123`
 - **Receptionist Account**: `receptionist@hospital.com` | `Password123`
 - **Patient Account**: `patient@hospital.com` | `Password123`

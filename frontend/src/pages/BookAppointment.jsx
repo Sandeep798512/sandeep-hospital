@@ -37,9 +37,9 @@ const BookAppointment = () => {
     }
     if (email.includes('priya') || name.includes('Priya')) return '/priya.jpg';
     if (email.includes('rahul') || name.includes('Rahul')) return '/rahul v.jpg';
-    if (email.includes('sandeep') || name.includes('sandeep') || name.includes('Sandeep')) return '/sandy.jpg';
+    if (email.includes('sandeep') || name.includes('sandeep') || name.includes('Sandeep')) return '/avatar.jpg';
 
-    return img || '/sandy.jpg';
+    return img || '/avatar.jpg';
   };
 
   useEffect(() => {

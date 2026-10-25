@@ -75,7 +75,7 @@ const LandingPage = () => {
   const doctors = [
     { name: 'Dr. Priya Sharma', dept: 'Cardiology', exp: '15+ Yrs Exp', rating: '4.9 ⭐', img: '/priya.jpg' },
     { name: 'Dr. Rahul Verma', dept: 'Neurosurgery', exp: '18+ Yrs Exp', rating: '4.95 ⭐', img: '/rahul v.jpg' },
-    { name: 'Dr. Sandeep Gaud', dept: 'Orthopedics & Medical Director', exp: '16+ Yrs Exp', rating: '5.0 ⭐', img: '/sandy.jpg' },
+    { name: 'Dr. Sandeep', dept: 'Orthopedics & Medical Director', exp: '16+ Yrs Exp', rating: '5.0 ⭐', img: '/avatar.jpg' },
     { name: 'Dr. Ananya Iyer', dept: 'Pediatrics', exp: '12+ Yrs Exp', rating: '4.85 ⭐', img: '/priyaaaa.jpg' },
   ];
 
@@ -87,7 +87,7 @@ const LandingPage = () => {
 
   const faqs = [
     { q: 'How do I book an online appointment?', a: 'Click on the "Book Consultation" button on our homepage, log in to your patient portal, choose your specialist doctor, date, and preferred time slot.' },
-    { q: 'Are emergency and ambulance services available 24/7?', a: 'Yes! Our Emergency Department and Critical ICU unit operate 24 hours a day, 365 days a year. Call our emergency hotline +91-8081220303 for immediate assistance.' },
+    { q: 'Are emergency and ambulance services available 24/7?', a: 'Yes! Our Emergency Department and Critical ICU unit operate 24 hours a day, 365 days a year. Call our emergency hotline +91-9876543210 for immediate assistance.' },
     { q: 'Does Sandeep Hospital accept cashless insurance policies?', a: 'We partner with over 35 leading health insurance providers (Star Health, HDFC ERGO, ICICI Lombard, etc.) for cashless hospitalization.' },
     { q: 'Can I download my lab reports and prescriptions online?', a: 'Yes. Once logged into your Patient Portal, you can download all PDF prescriptions, medical invoices, and lab diagnostic files instantly.' },
   ];
@@ -100,7 +100,7 @@ const LandingPage = () => {
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
           <div className="flex items-center space-x-2">
             <PhoneCall className="w-4 h-4 animate-bounce" />
-            <span>24/7 Emergency & Ambulance Hotline: <strong>+91 8081220303</strong></span>
+            <span>24/7 Emergency & Ambulance Hotline: <strong>+91 9876543210</strong></span>
           </div>
           <div className="flex items-center space-x-4 text-[11px]">
             <span>Lucknow, Uttar Pradesh</span>
@@ -230,7 +230,7 @@ const LandingPage = () => {
               <GlassCard className="p-6 sm:p-8 space-y-6 border border-white/40 dark:border-slate-800/40 shadow-2xl overflow-hidden hover:scale-102 transition-transform">
                 <div className="flex flex-col sm:flex-row items-center gap-5">
                   <img
-                    src="/SANDEEP.JPG"
+                    src="/avatar.jpg"
                     alt="Sandeep"
                     className="w-28 h-28 sm:w-32 sm:h-32 rounded-3xl object-cover border-4 border-primary-500/30 shadow-xl hover:rotate-2 transition-transform"
                   />
@@ -445,8 +445,8 @@ const LandingPage = () => {
               </div>
               <h3 className="font-bold text-base text-slate-900 dark:text-white">Phone & Emergency</h3>
               <p className="text-xs text-slate-500 dark:text-slate-400">24/7 Ambulance Hotline & Desk</p>
-              <a href="tel:+918081220303" className="font-extrabold text-sm text-primary-500 hover:underline block">
-                +91 8081220303
+              <a href="tel:+919876543210" className="font-extrabold text-sm text-primary-500 hover:underline block">
+                +91 9876543210
               </a>
             </GlassCard>
 
@@ -456,8 +456,8 @@ const LandingPage = () => {
               </div>
               <h3 className="font-bold text-base text-slate-900 dark:text-white">Email Address</h3>
               <p className="text-xs text-slate-500 dark:text-slate-400">Direct inquiries & online feedback</p>
-              <a href="mailto:softer7985@gmail.com" className="font-extrabold text-sm text-primary-500 hover:underline block">
-                softer7985@gmail.com
+              <a href="mailto:care.hospitaldesk@gmail.com" className="font-extrabold text-sm text-primary-500 hover:underline block">
+                care.hospitaldesk@gmail.com
               </a>
             </GlassCard>
 
@@ -515,11 +515,11 @@ const LandingPage = () => {
             <div className="space-y-2">
               <p className="flex items-center space-x-2 text-rose-400 font-bold text-sm">
                 <Phone className="w-4 h-4" />
-                <span>+91 8081220303</span>
+                <span>+91 9876543210</span>
               </p>
               <p className="flex items-center space-x-2">
                 <Mail className="w-4 h-4" />
-                <span>softer7985@gmail.com</span>
+                <span>care.hospitaldesk@gmail.com</span>
               </p>
               <p className="flex items-center space-x-2">
                 <MapPin className="w-4 h-4" />
