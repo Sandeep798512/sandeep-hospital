@@ -9,6 +9,7 @@ import {
 import { useTheme } from '../context/ThemeContext';
 import GlassCard from '../components/GlassCard';
 import Background3D from '../components/Background3D';
+import Hero3DVisual from '../components/Hero3DVisual';
 import ScrollReveal from '../components/ScrollReveal';
 
 const LandingPage = () => {
@@ -95,7 +96,7 @@ const LandingPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 transition-colors duration-300">
+    <div className="min-h-screen w-full max-w-full overflow-x-hidden bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 transition-colors duration-300">
       
       {/* TOP EMERGENCY BAR */}
       <div className="bg-gradient-to-r from-red-600 to-rose-600 text-white text-xs font-semibold py-2 px-4 shadow-sm">
@@ -169,19 +170,20 @@ const LandingPage = () => {
       </nav>
 
       {/* HERO SECTION WITH 3D BACKGROUND & SCROLL ANIMATION */}
-      <section className="relative overflow-hidden pt-12 pb-16 lg:pt-20 lg:pb-24">
+      <section className="relative overflow-hidden pt-8 pb-12 lg:pt-14 lg:pb-16">
         <Background3D />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             
-            <ScrollReveal animation="left" className="space-y-6 text-center lg:text-left">
-              <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-600 dark:text-indigo-400 text-xs font-bold">
+            {/* Left Content Column */}
+            <ScrollReveal animation="left" className="lg:col-span-7 space-y-5 text-center lg:text-left">
+              <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-600 dark:text-indigo-400 text-xs font-bold shadow-sm">
                 <Sparkles className="w-4 h-4" />
                 <span>AI-Powered Healthcare. Smarter Hospital Management.</span>
               </div>
 
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 dark:text-white tracking-tight leading-[1.15] min-h-[2.4em] sm:min-h-[2.2em]">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 dark:text-white tracking-tight leading-[1.2] min-h-[2em] sm:min-h-[1.8em]">
                 Your Health is{' '}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-blue-500 to-teal-400">
                   {currentText}
@@ -193,25 +195,25 @@ const LandingPage = () => {
                 Sandeep Super Specialty Hospital brings together top-tier medical specialists, advanced robotic surgical units, and Gemini AI diagnostic assistants for precision clinical care in Lucknow, UP.
               </p>
 
-              <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+              <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3.5 pt-1">
                 <Link
                   to="/patient/book"
-                  className="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold text-sm shadow-xl shadow-indigo-600/30 flex items-center justify-center space-x-2 transition-all hover:scale-105 active:scale-95 border border-indigo-600"
+                  className="w-full sm:w-auto px-6 py-3 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold text-sm shadow-xl shadow-indigo-600/30 flex items-center justify-center space-x-2 transition-all hover:scale-105 active:scale-95 border border-indigo-600"
                 >
-                  <Calendar className="w-5 h-5 text-white" />
+                  <Calendar className="w-4.5 h-4.5 text-white" />
                   <span className="text-white">Book Appointment Now</span>
                 </Link>
 
                 <Link
                   to="/register"
-                  className="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-800 dark:text-slate-100 hover:border-indigo-600 hover:text-indigo-600 font-extrabold text-sm flex items-center justify-center space-x-2 transition-all hover:scale-105 active:scale-95 shadow-sm"
+                  className="w-full sm:w-auto px-6 py-3 rounded-2xl bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-800 dark:text-slate-100 hover:border-indigo-600 hover:text-indigo-600 font-extrabold text-sm flex items-center justify-center space-x-2 transition-all hover:scale-105 active:scale-95 shadow-sm"
                 >
-                  <Users className="w-5 h-5" />
+                  <Users className="w-4.5 h-4.5" />
                   <span>Register Patient Portal</span>
                 </Link>
               </div>
 
-              <div className="grid grid-cols-3 gap-4 pt-6 border-t border-slate-200/60 dark:border-slate-800/60 text-center lg:text-left">
+              <div className="grid grid-cols-3 gap-4 pt-5 border-t border-slate-200/60 dark:border-slate-800/60 text-center lg:text-left">
                 <div>
                   <h3 className="text-2xl font-black text-slate-900 dark:text-white">250+</h3>
                   <p className="text-xs text-slate-500 font-medium">Expert Doctors</p>
@@ -227,37 +229,9 @@ const LandingPage = () => {
               </div>
             </ScrollReveal>
 
-            {/* FOUNDER & MEDICAL DIRECTOR SPOTLIGHT */}
-            <ScrollReveal animation="right" delay={120} className="relative">
-              <GlassCard className="p-6 sm:p-8 space-y-6 border border-white/40 dark:border-slate-800/40 shadow-2xl overflow-hidden hover:scale-102 transition-transform">
-                <div className="flex flex-col sm:flex-row items-center gap-5">
-                  <img
-                    src="/avatar.jpg"
-                    alt="Sandeep"
-                    className="w-28 h-28 sm:w-32 sm:h-32 rounded-3xl object-cover border-4 border-primary-500/30 shadow-xl hover:rotate-2 transition-transform"
-                  />
-                  <div className="text-center sm:text-left">
-                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider text-primary-500 bg-primary-500/10 inline-block mb-1">
-                      Founder & Chief Architect
-                    </span>
-                    <h3 className="text-xl font-black text-slate-900 dark:text-white">Sandeep</h3>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Senior MERN Stack Architect & Healthcare Tech Lead</p>
-                    <p className="text-[11px] text-slate-400 mt-2 italic leading-relaxed">
-                      "Committed to transforming regional healthcare through advanced technology, modern infrastructure, and empathetic patient care."
-                    </p>
-                  </div>
-                </div>
-
-                <div className="p-4 rounded-2xl bg-primary-500/5 dark:bg-primary-950/20 border border-primary-500/10 flex items-center justify-between">
-                  <div>
-                    <span className="text-[10px] font-bold text-primary-500 uppercase tracking-wider">AI Symptom Assistant</span>
-                    <h5 className="font-bold text-xs text-slate-800 dark:text-slate-200">Evaluate symptoms instantly before booking</h5>
-                  </div>
-                  <Link to="/login" className="p-2 rounded-xl bg-primary-500 text-white font-bold hover:bg-primary-600 hover:scale-110 active:scale-95 transition-all">
-                    <ArrowRight className="w-4 h-4" />
-                  </Link>
-                </div>
-              </GlassCard>
+            {/* Right Interactive 3D Medical Hologram Showcase */}
+            <ScrollReveal animation="right" delay={120} className="lg:col-span-5 w-full flex justify-center">
+              <Hero3DVisual />
             </ScrollReveal>
 
           </div>
