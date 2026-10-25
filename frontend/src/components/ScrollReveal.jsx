@@ -5,7 +5,7 @@ const ScrollReveal = ({
   animation = 'up', // 'up' | 'left' | 'right' | 'scale'
   delay = 0,
   className = '',
-  threshold = 0.12,
+  threshold = 0.05,
 }) => {
   const ref = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
@@ -14,23 +14,36 @@ const ScrollReveal = ({
     const node = ref.current;
     if (!node) return;
 
+    // Check immediately if already visible in viewport on mount
+    const rect = node.getBoundingClientRect();
+    if (rect.top < window.innerHeight && rect.bottom > 0) {
+      setIsVisible(true);
+      return;
+    }
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
-          observer.unobserve(node); // reveal once
+          observer.unobserve(node);
         }
       },
       {
         threshold,
-        rootMargin: '0px 0px -40px 0px',
+        rootMargin: '40px 0px 40px 0px',
       }
     );
 
     observer.observe(node);
 
+    // Fallback timer: ensure element is never stuck hidden
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+    }, 800);
+
     return () => {
       if (node) observer.unobserve(node);
+      clearTimeout(timer);
     };
   }, [threshold]);
 

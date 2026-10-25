@@ -230,9 +230,9 @@ const LandingPage = () => {
             </ScrollReveal>
 
             {/* Right Interactive 3D Medical Hologram Showcase */}
-            <ScrollReveal animation="right" delay={120} className="lg:col-span-5 w-full flex justify-center">
+            <div className="lg:col-span-5 w-full flex justify-center">
               <Hero3DVisual />
-            </ScrollReveal>
+            </div>
 
           </div>
         </div>

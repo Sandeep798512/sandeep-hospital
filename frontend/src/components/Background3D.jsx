@@ -137,7 +137,7 @@ const Background3D = () => {
     <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10 select-none">
       {/* 3D Medical Visual Backdrop with glowing perspective */}
       <div 
-        className="absolute inset-0 bg-cover bg-center opacity-15 dark:opacity-25 mix-blend-luminosity dark:mix-blend-screen scale-105 animate-float-3d transition-opacity duration-700"
+        className="absolute inset-0 bg-cover bg-center opacity-25 dark:opacity-40 scale-105 animate-float-3d transition-opacity duration-700"
         style={{
           backgroundImage: `url('/hero-3d-bg.jpg')`,
         }}
